@@ -1,0 +1,44 @@
+#Api Gate Way Runs On The Port 8081
+jwt:
+  secret: "9v8B3kLq7sT2mY1pQ4zXcV6uN0hJ5rF2bG7dH9kL0pQh2fM3nJ4tW8zX1yV6uR85394djfhywue89qweh9hweh9qwhasjkcauiuiweqwASascadfafa67567dfasdasdasdasdafvsvsvsdvsdfsdfsdfdfasdasdasdasdasfdaweasdasdcasdvsdfsdascascxw0="
+  expiration: 86400000
+
+server:
+  port: 8081
+
+# Application Name
+spring:
+  application:
+    name: Api-Gateway-Service
+
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
+        - id: doctor-service
+          uri: lb://doctor-service
+          predicates:
+            - Path=/doctor/**
+        - id: patient-service
+          uri: lb://patient-service
+          predicates:
+            - Path=/patient/**
+        - id: appointment-service
+          uri: lb://appointment-service
+          predicates:
+            - Path=/appointments/**
+
+
+# Eureka Server URL
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+
+
