@@ -1,0 +1,17 @@
+
+# Serves On The Port 8761
+server:
+  port: 8761
+
+
+# Application Name
+spring:
+  application:
+    name: Eureka-registry-Service
+
+# Stops Server From Registering It Self
+# Stops Server From Fetching The Registered List
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
