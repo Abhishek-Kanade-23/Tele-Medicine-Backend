@@ -1,6 +1,9 @@
 # Tele-Medicine-Backend
 # Telemedicine Microservices Architecture — README
 
+
+https://warrentyit-api.postman.co/workspace/My-Workspace~954dd8ab-12d7-4ec8-864e-5c3024bbecbb/collection/36536353-f53cd08c-c1dc-4595-8900-149677301a37?action=share&creator=36536353
+
 Below is a clean, production-ready README containing the ASCII architecture diagram, flow, endpoints, and recommendations.
 
 ---
