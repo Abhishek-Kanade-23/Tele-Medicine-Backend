@@ -1,9 +1,6 @@
 package com.authentication_service.services;
 
-import com.authentication_service.dtos.UserSignInRequestDTO;
-import com.authentication_service.dtos.UserSignInResponseDTO;
-import com.authentication_service.dtos.UserSignUpRequestDTO;
-import com.authentication_service.dtos.UserSignUpResponseDTO;
+import com.authentication_service.dtos.*;
 import com.authentication_service.entities.Role;
 import com.authentication_service.entities.User;
 import com.authentication_service.repositories.UserRepository;
@@ -111,5 +108,11 @@ public class UserService implements UserDetailsService {
 
 
         return new UserSignInResponseDTO(retrivedUser.getEmailId(), generatedToken , retrivedUser.getUserId()) ;
+    }
+
+    public GetAllRegisterredUsersDTO getAllRegisteredUsers() {
+
+        List<User> registeredUsers = userRepository.findAll() ;
+        return new GetAllRegisterredUsersDTO(registeredUsers);
     }
 }

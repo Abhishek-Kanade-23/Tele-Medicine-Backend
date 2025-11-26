@@ -1,10 +1,16 @@
 package com.authentication_service.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "roleId"
+//)
 @Entity
 @Table( name = "roles" )
 public class Role {
@@ -16,6 +22,7 @@ public class Role {
     private String roleType ;
 
     @ManyToMany( mappedBy = "roles")
+    @JsonBackReference
     private List<User> users = new ArrayList<>() ;
 
     public String getRoleId() {

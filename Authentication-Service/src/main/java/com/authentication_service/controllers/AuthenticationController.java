@@ -1,15 +1,15 @@
 package com.authentication_service.controllers;
 
 
-import com.authentication_service.dtos.UserSignInRequestDTO;
-import com.authentication_service.dtos.UserSignInResponseDTO;
-import com.authentication_service.dtos.UserSignUpRequestDTO;
-import com.authentication_service.dtos.UserSignUpResponseDTO;
+import com.authentication_service.dtos.*;
+import com.authentication_service.entities.User;
 import com.authentication_service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -39,6 +39,15 @@ public class AuthenticationController {
                         userService.getUserSignIn( userSignInRequestDTO )
                 ) ;
 
+    }
+
+
+    @GetMapping("/users")
+    public ResponseEntity<GetAllRegisterredUsersDTO> getAllRegisteredUsers(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(
+                        userService.getAllRegisteredUsers()
+                ) ;
     }
 
 
