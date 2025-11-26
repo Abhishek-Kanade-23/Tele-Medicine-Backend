@@ -1,6 +1,8 @@
 package com.authentication_service.controllers;
 
 
+import com.authentication_service.dtos.UserSignInRequestDTO;
+import com.authentication_service.dtos.UserSignInResponseDTO;
 import com.authentication_service.dtos.UserSignUpRequestDTO;
 import com.authentication_service.dtos.UserSignUpResponseDTO;
 import com.authentication_service.services.UserService;
@@ -28,6 +30,15 @@ public class AuthenticationController {
                 .body(
                         userService.getUserSignUp( userSignUpRequestDTO )
                 ) ;
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<UserSignInResponseDTO> getUSerSignIn(@RequestBody UserSignInRequestDTO userSignInRequestDTO ){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(
+                        userService.getUserSignIn( userSignInRequestDTO )
+                ) ;
+
     }
 
 
