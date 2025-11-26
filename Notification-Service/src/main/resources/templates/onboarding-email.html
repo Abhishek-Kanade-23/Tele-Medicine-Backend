@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Welcome to [[${appName}]]</title>
+    <style>
+        body{font-family:Arial, sans-serif; background:#f6f4fb; margin:0; padding:0}
+        .card{max-width:700px;margin:30px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 6px 20px rgba(99,102,241,0.12)}
+        .hero{background:linear-gradient(90deg,#6d28d9,#8b5cf6);padding:30px;color:white;text-align:center}
+        .hero h1{margin:0;font-size:22px}
+        .body{padding:28px;color:#333}
+        .cta{display:inline-block;padding:12px 20px;border-radius:10px;background:#5b21b6;color:#fff;text-decoration:none}
+        .footer{padding:14px;text-align:center;font-size:13px;color:#777;background:#fbf8ff}
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="hero">
+        <h1>Welcome to [[${appName}]]</h1>
+    </div>
+    <div class="body">
+        <p>Hi [[${name}]],</p>
+        <p>Thanks for joining TeleMedicine. We're excited to help you get connected with healthcare professionals quickly and securely.</p>
+        <p><a class="cta" href="#">Get Started</a></p>
+        <p class="small">If you need help, reply to this email.</p>
+    </div>
+    <div class="footer">
+        &copy; [[${appName}]] — All rights reserved.
+    </div>
+</div>
+</body>
+</html>
