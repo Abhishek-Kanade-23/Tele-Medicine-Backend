@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Appointment Booked</title>
+    <style>
+        body { font-family: Arial, sans-serif; background:#f6f4fb; margin:0; padding:0; }
+        .container { max-width:600px; margin:36px auto; background:white; border-radius:12px; overflow:hidden; box-shadow:0 6px 18px rgba(88,63,209,0.12); }
+        .header { background: linear-gradient(90deg, #6d28d9, #8b5cf6); color:white; padding:24px; text-align:center; }
+        .content { padding:28px; color:#333; }
+        .footer { padding:18px; text-align:center; font-size:12px; color:#888; background:#fbf8ff; }
+        .btn { display:inline-block; padding:10px 18px; border-radius:8px; background:#6d28d9; color:white; text-decoration:none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>New Appointment Booked</h2>
+    </div>
+
+    <div class="content">
+        <p>Hello Dr. <b>[[${doctorName}]]</b>,</p>
+        <p>A new appointment has been scheduled with patient <b>[[${patientName}]]</b>.</p>
+
+        <p><b>Date:</b> [[${appointmentDate}]]</p>
+        <p><b>Time:</b> [[${appointmentTime}]]</p>
+
+        <br/>
+        <a class="btn" href="#">View Details</a>
+    </div>
+
+    <div class="footer">
+        &copy; [[${appName}]] — TeleMedicine
+    </div>
+</div>
+
+</body>
+</html>

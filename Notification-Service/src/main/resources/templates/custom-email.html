@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>[[${appName}]] Notification</title>
+    <style>
+        body{font-family:Arial, sans-serif;background:#f6f4fb;margin:0;padding:0}
+        .wrap{max-width:700px;margin:30px auto;background:#fff;padding:22px;border-radius:10px;box-shadow:0 6px 18px rgba(99,102,241,0.08)}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div th:utext="${bodyHtml}"></div>
+    <hr/>
+    <p style="color:#777;font-size:12px">Sent by [[${appName}]]</p>
+</div>
+</body>
+</html>

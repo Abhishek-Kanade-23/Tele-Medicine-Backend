@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>OTP - [[${appName}]]</title>
+    <style>
+        body { font-family: Arial, sans-serif; background:#f6f4fb; margin:0; padding:0; }
+        .container { max-width:600px; margin:36px auto; background:white; border-radius:12px; overflow:hidden; box-shadow:0 6px 18px rgba(88,63,209,0.12); }
+        .header { background: linear-gradient(90deg, #5b21b6, #7c3aed); color:white; padding:24px; text-align:center;}
+        .header h1 { margin:0; font-size:20px; letter-spacing:0.4px; }
+        .content { padding:28px; color:#333; }
+        .otp { display:inline-block; font-size:28px; font-weight:700; letter-spacing:6px; background:#faf5ff; padding:12px 18px; border-radius:8px; color:#4c1d95; margin:12px 0; }
+        .small { color:#666; font-size:13px; margin-top:8px; }
+        .footer { padding:18px; text-align:center; font-size:12px; color:#888; background:#fbf8ff;}
+        .btn { display:inline-block; padding:10px 18px; border-radius:8px; background: #6d28d9; color:white; text-decoration:none; margin-top:14px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>[[${appName}]] — OTP Verification</h1>
+    </div>
+    <div class="content">
+        <p>Hello,</p>
+        <p>Your verification code is:</p>
+        <div class="otp">[[${otp}]]</div>
+        <p class="small">This code will expire in [[${minutes}]] minutes. If you didn't request this, please ignore this email.</p>
+        <p><a class="btn" href="#">Open [[${appName}]]</a></p>
+    </div>
+    <div class="footer">
+        &copy; 2025 [[${appName}]]
+    </div>
+
+</div>
+</body>
+</html>
