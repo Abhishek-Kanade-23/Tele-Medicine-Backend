@@ -107,7 +107,7 @@ public class UserService implements UserDetailsService {
 
 
 
-        return new UserSignInResponseDTO(retrivedUser.getEmailId(), generatedToken , retrivedUser.getUserId()) ;
+        return new UserSignInResponseDTO(retrivedUser.getEmailId(), generatedToken , retrivedUser.getUserId(),userRoles) ;
     }
 
     public GetAllRegisterredUsersDTO getAllRegisteredUsers() {

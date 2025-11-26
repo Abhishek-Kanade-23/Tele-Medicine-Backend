@@ -30,6 +30,9 @@ public class JWTAuthenticationFilter implements GlobalFilter ,Ordered {
         if (path.contains("/auth/")) {
             return chain.filter(exchange);
         }
+        if(path.contains("/notifications/")){
+            return chain.filter(exchange);
+        }
 
         // 2. Extract authorization header
         String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);

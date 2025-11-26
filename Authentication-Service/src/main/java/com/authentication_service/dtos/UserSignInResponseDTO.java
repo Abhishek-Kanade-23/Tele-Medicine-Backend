@@ -1,19 +1,31 @@
 package com.authentication_service.dtos;
 
+import java.util.List;
+
 public class UserSignInResponseDTO {
 
     private String userId ;
     private String emailId ;
     private String jwtToken ;
+    private List<String> roles;
 
 
     public UserSignInResponseDTO() {
     }
 
-    public UserSignInResponseDTO(String emailId, String jwtToken, String userId) {
+    public UserSignInResponseDTO(String emailId, String jwtToken, String userId,List<String>roles) {
         this.emailId = emailId;
         this.jwtToken = jwtToken;
         this.userId = userId;
+        this.roles=roles;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
     public String getEmailId() {
