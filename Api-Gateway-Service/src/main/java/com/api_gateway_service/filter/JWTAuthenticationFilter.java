@@ -51,6 +51,9 @@ public class JWTAuthenticationFilter implements GlobalFilter ,Ordered {
         String userId = jwtUtil.extractUserId(token);
         String roles = jwtUtil.extractRoles(token);
 
+
+        System.out.println("Roles ==> " +roles);
+
         // 5. Add identity headers for downstream services
         ServerHttpRequest modifiedReq = request.mutate()
                 .header("X-User-Id", userId)

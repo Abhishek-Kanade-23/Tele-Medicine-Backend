@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
 import java.security.Key;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class JwtUtil {
@@ -57,7 +59,7 @@ public class JwtUtil {
 
     // 🔹 Extract roles
     public String extractRoles(String token) {
-        return extractAllClaims(token).get("roles", String.class);
+        return extractAllClaims(token).get("roles", List.class).toString();
     }
 
     // 🔹 Extract all claims
