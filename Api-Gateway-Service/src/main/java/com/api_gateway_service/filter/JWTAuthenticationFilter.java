@@ -8,9 +8,12 @@ import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+
+@Component
 public class JWTAuthenticationFilter implements GlobalFilter ,Ordered {
 
 
@@ -21,6 +24,7 @@ public class JWTAuthenticationFilter implements GlobalFilter ,Ordered {
 
         ServerHttpRequest request = exchange.getRequest() ;
         String path = request.getURI().getPath() ;
+        System.out.println("Path ==> " + path);
 
         // 1. Allow unprotected paths (login, register)
         if (path.contains("/auth/")) {
