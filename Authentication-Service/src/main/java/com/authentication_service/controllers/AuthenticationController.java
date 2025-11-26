@@ -4,6 +4,7 @@ package com.authentication_service.controllers;
 import com.authentication_service.dtos.*;
 import com.authentication_service.entities.User;
 import com.authentication_service.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class AuthenticationController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<UserSignUpResponseDTO> getUserSignUp(@RequestBody UserSignUpRequestDTO userSignUpRequestDTO ){
+    public ResponseEntity<UserSignUpResponseDTO> getUserSignUp(@Valid @RequestBody UserSignUpRequestDTO userSignUpRequestDTO ){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(
                         userService.getUserSignUp( userSignUpRequestDTO )
@@ -33,7 +34,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<UserSignInResponseDTO> getUSerSignIn(@RequestBody UserSignInRequestDTO userSignInRequestDTO ){
+    public ResponseEntity<UserSignInResponseDTO> getUSerSignIn(@Valid @RequestBody UserSignInRequestDTO userSignInRequestDTO ){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(
                         userService.getUserSignIn( userSignInRequestDTO )

@@ -1,8 +1,15 @@
 package com.authentication_service.dtos;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class UserSignInRequestDTO {
 
+    @Email(message = "Email Id Should Be In Proper Format")
     private String emailId  ;
+
+    @NotBlank(message = "Password Cannot Be Blank")
     private String password ;
 
     public UserSignInRequestDTO() {
