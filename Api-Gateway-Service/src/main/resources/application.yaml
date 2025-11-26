@@ -1,4 +1,65 @@
-#Api Gate Way Runs On The Port 8081
+## Api Gate Way Runs On The Port 8081
+#jwt:
+#  secret: "9v8B3kLq7sT2mY1pQ4zXcV6uN0hJ5rF2bG7dH9kL0pQh2fM3nJ4tW8zX1yV6uR85394djfhywue89qweh9hweh9qwhasjkcauiuiweqwASascadfafa67567dfasdasdasdasdafvsvsvsdvsdfsdfsdfdfasdasdasdasdasfdaweasdasdcasdvsdfsdascascxw0="
+#  expiration: 86400000
+#
+#server:
+#  port: 8081
+#
+#spring:
+#  application:
+#    name: Api-Gateway-Service
+#
+#  cloud:
+#    gateway:
+#
+#      ###############################################################
+#      # ✅ GLOBAL CORS CONFIGURATION (WebFlux Gateway)
+#      ###############################################################
+#      globalcors:
+#        add-to-simple-url-handler-mapping: true
+#        corsConfigurations:
+#          '[/**]':
+#            allowedOrigins: "*"
+#            allowedMethods:
+#              - GET
+#              - POST
+#              - PUT
+#              - DELETE
+#              - PATCH
+#              - OPTIONS
+#            allowedHeaders: "*"
+#            allowCredentials: true
+#
+#      ###############################################################
+#      # ✅ ROUTES
+#      ###############################################################
+#      routes:
+#        - id: authentication-service
+#          uri: lb://authentication-service
+#          predicates:
+#            - Path=/auth/**, /test/**
+#        - id: doctor-service
+#          uri: lb://doctor-service
+#          predicates:
+#            - Path=/doctor/**
+#        - id: patient-service
+#          uri: lb://patient-service
+#          predicates:
+#            - Path=/patient/**
+#        - id: appointment-service
+#          uri: lb://appointment-service
+#          predicates:
+#            - Path=/appointments/**
+#
+## Eureka Server URL
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/
+#  instance:
+#    prefer-ip-address: true
+
 jwt:
   secret: "9v8B3kLq7sT2mY1pQ4zXcV6uN0hJ5rF2bG7dH9kL0pQh2fM3nJ4tW8zX1yV6uR85394djfhywue89qweh9hweh9qwhasjkcauiuiweqwASascadfafa67567dfasdasdasdasdafvsvsvsdvsdfsdfsdfdfasdasdasdasdasfdaweasdasdcasdvsdfsdascascxw0="
   expiration: 86400000
@@ -6,18 +67,35 @@ jwt:
 server:
   port: 8081
 
-# Application Name
 spring:
   application:
     name: Api-Gateway-Service
 
   cloud:
     gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:5173"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+            maxAge: 3600
+
       routes:
         - id: authentication-service
           uri: lb://authentication-service
           predicates:
-            - Path=/auth/**, /test/**
+            - Path=/auth/**,/test/**
         - id: doctor-service
           uri: lb://doctor-service
           predicates:
@@ -31,14 +109,9 @@ spring:
           predicates:
             - Path=/appointments/**
 
-
-# Eureka Server URL
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
   instance:
     prefer-ip-address: true
-
-
-
