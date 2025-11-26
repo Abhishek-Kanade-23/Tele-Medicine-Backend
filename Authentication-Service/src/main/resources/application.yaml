@@ -1,0 +1,40 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: Authentication-Service
+
+  datasource:
+    # Use the direct connection URL for JPA/Hibernate operations
+    url: jdbc:postgresql://aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres?sslmode=require
+    username: postgres.clpaasikckeoplfbqunc
+    password: Pune@Encora45
+    driver-class-name: org.postgresql.Driver
+
+  hikari:
+    maximum-pool-size: 1000          # Appropriate for microservices
+    minimum-idle: 2
+    idle-timeout: 30000           # 30 seconds
+    connection-timeout: 20000     # 20 seconds
+    max-lifetime: 1800000         # 30 minutes
+    leak-detection-threshold: 60000  # 60 seconds - helps identify connection leaks
+
+  jpa:
+    hibernate:
+      ddl-auto: update            # Use 'validate' or 'none' in production
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true  # Prevents warning with PostgreSQL
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
