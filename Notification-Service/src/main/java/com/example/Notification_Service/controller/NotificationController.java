@@ -44,6 +44,7 @@ public class NotificationController {
     @PostMapping("/send-onboarding")
     public ResponseEntity<?> sendOnboarding(@Valid @RequestBody SendEmailRequest req) {
         try {
+            System.out.println("request"+req);
             emailService.sendHtmlMessage(req.to(), req.subject(), "onboarding-email",
                     Map.of("name", "New User", "appName", "TeleMedicine"));
             return ResponseEntity.ok(Map.of("message", "Onboarding email sent"));
@@ -67,6 +68,8 @@ public class NotificationController {
     @PostMapping("/appointment-booked")
     public ResponseEntity<?> sendAppointmentEmails(@RequestBody Map<String, String> req) {
         try {
+
+
             String patientEmail = req.get("patientEmail");
             String doctorEmail = req.get("doctorEmail");
             String doctorName = req.get("doctorName");

@@ -12,7 +12,7 @@ import com.project.VisitService.repository.VisitRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +26,8 @@ public class VisitServiceImpl implements VisitService {
     private final PrescriptionRepository prescriptionRepository;
     private final DoctorClient doctorClient;
     private final PatientClient patientClient;
+    private final NotificationClient notificationClient;
+
 
     // ---------------------------
     // BOOK VISIT
@@ -64,6 +66,19 @@ public class VisitServiceImpl implements VisitService {
         try {
             doctorClient.createMapping(request.getDoctorId(), request.getPatientId());
         } catch (Exception ignored) {}
+
+        try {
+        notificationClient.sendAppointmentEmails(Map.of(
+                "patientEmail", patientDto.getEmail(),
+                "doctorEmail", "aniket.patil@encora.com",
+                "doctorName", doctor.getFirstName(),
+                "patientName", patientDto.getName(),
+                "appointmentDate", request.getScheduledTime().toLocalDate().toString(),
+                "appointmentTime", request.getScheduledTime().toLocalTime().toString()
+        ));
+    } catch (Exception ex) {
+        System.out.println("Email sending failed: " + ex.getMessage());
+    }
 
         return BookVisitResponse.builder()
                 .visitId(saved.getVisitId())
