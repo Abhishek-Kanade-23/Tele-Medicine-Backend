@@ -103,7 +103,7 @@ spring:
         - id: patient-service
           uri: lb://patient-service
           predicates:
-            - Path=/patient/**
+            - Path=/patients/**
         - id: appointment-service
           uri: lb://appointment-service
           predicates:
