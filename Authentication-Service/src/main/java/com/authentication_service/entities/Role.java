@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +14,10 @@ import java.util.List;
 //)
 @Entity
 @Table( name = "roles" )
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
-    private String roleId ;
+    private Long roleId ;
 
     @Column( nullable = false )
     private String roleType ;
@@ -25,11 +26,11 @@ public class Role {
     @JsonBackReference
     private List<User> users = new ArrayList<>() ;
 
-    public String getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
@@ -55,5 +56,10 @@ public class Role {
                 "roleType='" + roleType + '\'' +
                 ", roleId='" + roleId + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getAuthority() {
+        return this.roleType;
     }
 }

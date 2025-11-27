@@ -28,9 +28,9 @@ public class JwtUtility {
     }
 
     // 🔹 Generate JWT
-    public String generateToken(String userId, List<String> roles, String emailId) {
+    public String generateToken(Long userId, List<String> roles, String emailId) {
         return Jwts.builder()
-                .setSubject(userId)
+                .setSubject(userId.toString())
                 .claim("roles", roles)
                 .claim("emailId", emailId)
                 .setIssuedAt(new Date())

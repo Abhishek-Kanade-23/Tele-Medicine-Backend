@@ -4,7 +4,7 @@ import java.util.List;
 
 public class UserSignInResponseDTO {
 
-    private String userId ;
+    private Long userId ;
     private String emailId ;
     private String jwtToken ;
     private List<String> roles;
@@ -13,7 +13,7 @@ public class UserSignInResponseDTO {
     public UserSignInResponseDTO() {
     }
 
-    public UserSignInResponseDTO(String emailId, String jwtToken, String userId,List<String>roles) {
+    public UserSignInResponseDTO(String emailId, String jwtToken, Long userId,List<String>roles) {
         this.emailId = emailId;
         this.jwtToken = jwtToken;
         this.userId = userId;
@@ -44,11 +44,11 @@ public class UserSignInResponseDTO {
         this.jwtToken = jwtToken;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

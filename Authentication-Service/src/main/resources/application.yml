@@ -11,13 +11,13 @@ spring:
 
   datasource:
     # Use the direct connection URL for JPA/Hibernate operations
-    url: jdbc:postgresql://aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require
+    url: jdbc:postgresql://aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres?sslmode=require
     username: postgres.clpaasikckeoplfbqunc
     password: Pune@Encora45
     driver-class-name: org.postgresql.Driver
 
   hikari:
-    maximum-pool-size: 1000          # Appropriate for microservices
+    maximum-pool-size: 5          # Appropriate for microservices
     minimum-idle: 2
     idle-timeout: 30000           # 30 seconds
     connection-timeout: 20000     # 20 seconds

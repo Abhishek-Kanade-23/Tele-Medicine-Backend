@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+
 //@JsonIdentityInfo(
 //        generator = ObjectIdGenerators.PropertyGenerator.class,
 //        property = "userId"
@@ -20,8 +22,8 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.UUID )
-    private String userId ;
+    @GeneratedValue( strategy = GenerationType.SEQUENCE )
+    private Long userId ;
 
     @Column( unique = true , nullable = false )
     private String emailId ;
@@ -40,11 +42,11 @@ public class User implements UserDetails {
     private List<Role> roles = new ArrayList<>();
 
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -58,7 +60,10 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+
+
+
+        return roles;
     }
 
     public String getPassword() {
