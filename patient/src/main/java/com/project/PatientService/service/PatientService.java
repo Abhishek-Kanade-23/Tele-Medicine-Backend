@@ -9,5 +9,6 @@ public interface PatientService {
 	List<PatientDTO> getAllPatients();
 	PatientDTO getPatientById(Long patientId);
 	String addPatient(PatientDTO patient);
-	
+	String updatePatient(Long patientId, PatientDTO patient);
+    String deletePatient(Long patientId);
 }

@@ -7,19 +7,20 @@ import java.util.List;
 
 public interface VisitService {
 
-    BookVisitResponse bookVisit(BookVisitRequest request);
+	BookVisitResponse bookVisit(BookVisitRequest request);
 
-    List<VisitHistoryDTO> getUpcomingVisitsForDoctor(Long doctorId);
+	List<VisitHistoryDTO> getUpcomingVisitsForDoctor(Long doctorId);
 
-    void updateVisitStatus(Long visitId, String status);
+	void updateVisitStatus(Long visitId, String status);
 
-    List<VisitHistoryDTO> getVisitHistoryForPatient(Long patientId);
+	List<VisitHistoryDTO> getVisitHistoryForPatient(Long patientId);
 
-    VisitDetailsDTO getVisitDetails(Long visitId);
+	VisitDetailsDTO getVisitDetails(Long visitId);
 
-    LastVisitSummaryDTO getLastVisitSummaryForPatient(Long patientId);
-    public List<VisitHistoryDTO> getUpcomingVisitsForPatient(Long patientId);
-    
-    LastVisitSummaryDTO getLastVisitSummaryForDoctorAndPatient(Long doctorId, Long patientId);
+	LastVisitSummaryDTO getLastVisitSummaryForPatient(Long patientId);
+
+	public List<VisitHistoryDTO> getUpcomingVisitsForPatient(Long patientId);
+
+	LastVisitSummaryDTO getLastVisitSummaryForDoctorAndPatient(Long doctorId, Long patientId);
 
 }

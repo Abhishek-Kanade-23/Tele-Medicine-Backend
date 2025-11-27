@@ -35,13 +35,16 @@ public class VisitServiceImpl implements VisitService {
     public BookVisitResponse bookVisit(BookVisitRequest request) {
 
         // 1) Validate doctor exists
+    	System.out.println("Request::"+request);
         var doctor = doctorClient.getDoctor(request.getDoctorId());
+        System.out.println("doctor resp"+doctor);
         if (doctor == null) {
             throw new RuntimeException("Doctor not found: " + request.getDoctorId());
         }
 
         // 2) Validate patient exists
         var patientDto = patientClient.getPatient(request.getPatientId());
+        System.out.println("patient resp"+patientDto);
         if (patientDto == null) {
             throw new RuntimeException("Patient not found: " + request.getPatientId());
         }
@@ -58,9 +61,9 @@ public class VisitServiceImpl implements VisitService {
         Visit saved = visitRepository.save(visit);
 
         // 4) Best-effort: create mapping doctor <-> patient
-//        try {
-//            doctorClient.createMapping(request.getDoctorId(), request.getPatientId());
-//        } catch (Exception ignored) {}
+        try {
+            doctorClient.createMapping(request.getDoctorId(), request.getPatientId());
+        } catch (Exception ignored) {}
 
         return BookVisitResponse.builder()
                 .visitId(saved.getVisitId())

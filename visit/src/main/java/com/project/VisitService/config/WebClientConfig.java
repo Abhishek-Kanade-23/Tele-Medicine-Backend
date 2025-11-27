@@ -21,7 +21,7 @@ public class WebClientConfig {
     @Bean
     public WebClient patientWebClient() {
         return WebClient.builder()
-                .baseUrl("http://localhost:8082/api")   // -> /api/patients/...
+                .baseUrl("http://localhost:8082")   // -> /api/patients/...
                 .exchangeStrategies(ExchangeStrategies.builder().build())
                 .build();
     }

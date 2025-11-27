@@ -13,20 +13,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PatientController {
 
-    private final PatientService patientService;
+	private final PatientService patientService;
 
-    @GetMapping
-    public ResponseEntity<List<PatientDTO>> getAllPatients() {
-        return ResponseEntity.ok(patientService.getAllPatients());
-    }
+	@GetMapping
+	public ResponseEntity<List<PatientDTO>> getAllPatients() {
+		return ResponseEntity.ok(patientService.getAllPatients());
+	}
 
-    @GetMapping("/{patientId}")
-    public ResponseEntity<PatientDTO> getPatient(@PathVariable Long patientId) {
-        return ResponseEntity.ok(patientService.getPatientById(patientId));
-    }
+	@GetMapping("/{patientId}")
+	public ResponseEntity<PatientDTO> getPatient(@PathVariable Long patientId) {
+		return ResponseEntity.ok(patientService.getPatientById(patientId));
+	}
 
-    @PostMapping
-    public ResponseEntity<String> addPatient(@RequestBody PatientDTO patient) {
-        return ResponseEntity.ok(patientService.addPatient(patient));
-    }
+	@PostMapping
+	public ResponseEntity<String> addPatient(@RequestBody PatientDTO patient) {
+		return ResponseEntity.ok(patientService.addPatient(patient));
+	}
+
+	@PutMapping("/{patientId}")
+	public ResponseEntity<String> updatePatient(@PathVariable Long patientId, @RequestBody PatientDTO dto) {
+		return ResponseEntity.ok(patientService.updatePatient(patientId, dto));
+	}
+
+	@DeleteMapping("/{patientId}")
+	public ResponseEntity<String> deletePatient(@PathVariable Long patientId) {
+		return ResponseEntity.ok(patientService.deletePatient(patientId));
+	}
 }
