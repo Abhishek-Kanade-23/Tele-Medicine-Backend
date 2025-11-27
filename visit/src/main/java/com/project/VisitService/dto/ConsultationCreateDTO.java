@@ -10,9 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class ConsultationCreateDTO {
-
     private String notes;
-
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate followUpDate;
 }

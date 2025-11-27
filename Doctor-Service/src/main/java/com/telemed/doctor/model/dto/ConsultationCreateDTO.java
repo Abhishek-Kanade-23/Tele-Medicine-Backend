@@ -1,5 +1,9 @@
 package com.telemed.doctor.model.dto;
 
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.*;
 
 @Data
@@ -7,7 +11,8 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ConsultationCreateDTO {
-
     private String notes;
-    private String followUpDate;  
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate followUpDate;
 }
+

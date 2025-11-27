@@ -1,6 +1,7 @@
 package com.telemed.doctor.controller;
 
 import com.telemed.doctor.model.dto.ConsultationCreateDTO;
+import com.telemed.doctor.model.dto.ConsultationResponseDTO;
 import com.telemed.doctor.model.dto.ConsultationUpdateDTO;
 import com.telemed.doctor.service.ConsultationNotesService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class ConsultationController {
 
     // Write new notes
     @PostMapping("/{visitId}")
-    public String createConsultationNotes(
+    public ConsultationResponseDTO createConsultationNotes(
             @PathVariable Long visitId,
             @RequestBody ConsultationCreateDTO dto
     ) {
@@ -24,7 +25,7 @@ public class ConsultationController {
 
     // Edit notes
     @PutMapping("/{consultationId}")
-    public String updateConsultationNotes(
+    public ConsultationResponseDTO updateConsultationNotes(
             @PathVariable Long consultationId,
             @RequestBody ConsultationUpdateDTO dto
     ) {

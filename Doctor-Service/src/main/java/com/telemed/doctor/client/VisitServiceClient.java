@@ -1,5 +1,8 @@
 package com.telemed.doctor.client;
 
+import com.telemed.doctor.model.dto.ConsultationCreateDTO;
+import com.telemed.doctor.model.dto.ConsultationResponseDTO;
+import com.telemed.doctor.model.dto.ConsultationUpdateDTO;
 import com.telemed.doctor.model.dto.LastVisitSummaryDTO;
 import com.telemed.doctor.model.dto.VisitSummaryDTO;
 import lombok.RequiredArgsConstructor;
@@ -66,34 +69,22 @@ public class VisitServiceClient {
 
     // 5. Create / Update consultation (we still call Visit-Service endpoints for consultations under visits)
     // create
-    public Object createConsultation(Long visitId, Object dto) {
-        try {
-            return visitServiceWebClient.post()
-                    .uri("/visits/{visitId}/consultation", visitId)
-                    .bodyValue(dto)
-                    .retrieve()
-                    .bodyToMono(Object.class)
-                    .retry(1)
-                    .timeout(Duration.ofSeconds(3))
-                    .block();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public ConsultationResponseDTO createConsultation(Long visitId, ConsultationCreateDTO dto) {
+        return visitServiceWebClient.post()
+                .uri("/consultations/{visitId}", visitId)
+                .bodyValue(dto)
+                .retrieve()
+                .bodyToMono(ConsultationResponseDTO.class)
+                .block();
     }
 
     // update
-    public Object updateConsultation(Long consultationId, Object dto) {
-        try {
-            return visitServiceWebClient.put()
-                    .uri("/visits/{visitId}/consultation/{consultationId}", consultationId, consultationId) // if needed adjust path
-                    .bodyValue(dto)
-                    .retrieve()
-                    .bodyToMono(Object.class)
-                    .retry(1)
-                    .timeout(Duration.ofSeconds(3))
-                    .block();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public ConsultationResponseDTO updateConsultation(Long consultationId, ConsultationUpdateDTO dto) {
+        return visitServiceWebClient.put()
+                .uri("/consultations/{consultationId}", consultationId)
+                .bodyValue(dto)
+                .retrieve()
+                .bodyToMono(ConsultationResponseDTO.class)
+                .block();
     }
 }
