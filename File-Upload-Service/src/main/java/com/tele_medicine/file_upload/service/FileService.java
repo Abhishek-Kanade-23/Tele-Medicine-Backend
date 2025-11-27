@@ -18,16 +18,18 @@ import java.time.Duration;
 @RequiredArgsConstructor
 public class FileService {
 
-    private final S3Client s3Client;      // FIXED
-    private final S3Presigner presigner;  // FIXED
+    private final S3Client s3Client;
+    private final S3Presigner presigner;
 
     @Value("${aws.s3.bucket}")
     private String bucketName;
 
-    public FileResponse uploadFile(MultipartFile file) {
+    public FileResponse uploadFileAndGenerateUrl(MultipartFile file) {
         try {
+            // 1. Generate unique file name
             String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 
+            // 2. Upload to S3
             PutObjectRequest putRequest = PutObjectRequest.builder()
                     .bucket(bucketName)
                     .key(fileName)
@@ -36,39 +38,25 @@ public class FileService {
 
             s3Client.putObject(putRequest, RequestBody.fromBytes(file.getBytes()));
 
-            return new FileResponse(fileName, "Uploaded Successfully");
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to upload file: " + e.getMessage());
-        }
-    }
-
-    public String generatePresignedUrl(String fileName) {
-
-        try {
-            HeadObjectRequest headObjectRequest = HeadObjectRequest.builder()
+            // 3. Generate presigned URL
+            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                     .bucket(bucketName)
                     .key(fileName)
                     .build();
 
-            s3Client.headObject(headObjectRequest); // This will throw if file not found
+            GetObjectPresignRequest presignRequest =
+                    GetObjectPresignRequest.builder()
+                            .signatureDuration(Duration.ofMinutes(10))
+                            .getObjectRequest(getObjectRequest)
+                            .build();
 
-        } catch (Exception exception) {
-            return "File does not exist: " + fileName;
+            URL url = presigner.presignGetObject(presignRequest).url();
+
+            // 4. Return response object
+            return new FileResponse(fileName, "Uploaded Successfully", url.toString());
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to upload file: " + e.getMessage());
         }
-
-        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                .bucket(bucketName)
-                .key(fileName)
-                .build();
-
-        GetObjectPresignRequest presignRequest =
-                GetObjectPresignRequest.builder()
-                        .signatureDuration(Duration.ofMinutes(10))
-                        .getObjectRequest(getObjectRequest)
-                        .build();
-
-        URL url = presigner.presignGetObject(presignRequest).url();
-        return url.toString();
     }
 }
