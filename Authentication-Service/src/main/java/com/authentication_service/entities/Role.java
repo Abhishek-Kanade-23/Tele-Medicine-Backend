@@ -14,7 +14,7 @@ import java.util.List;
 //)
 @Entity
 @Table( name = "roles" )
-public class Role implements GrantedAuthority {
+public class Role  {
 
     @Id
     private Long roleId ;
@@ -58,8 +58,5 @@ public class Role implements GrantedAuthority {
                 '}';
     }
 
-    @Override
-    public String getAuthority() {
-        return this.roleType;
-    }
+
 }
