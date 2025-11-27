@@ -5,23 +5,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserSignUpResponseDTO {
 
-    private String userId ;
+    private Long userId ;
 
     private String emailId ;
 
     public UserSignUpResponseDTO() {
     }
 
-    public UserSignUpResponseDTO(String userId, String emailId) {
+    public UserSignUpResponseDTO(Long userId, String emailId) {
         this.userId = userId;
         this.emailId = emailId;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
