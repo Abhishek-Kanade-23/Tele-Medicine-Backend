@@ -1,6 +1,10 @@
 package com.tele_medicine.file_upload.service;
 
 import com.tele_medicine.file_upload.dto.FileResponse;
+import com.tele_medicine.file_upload.entity.MedicalDocument;
+import com.tele_medicine.file_upload.repository.MedicalDocumentRepository;
+import com.tele_medicine.file_upload.util.JWTUtil;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,50 +17,78 @@ import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignReques
 
 import java.net.URL;
 import java.time.Duration;
+import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
 public class FileService {
 
-    private final S3Client s3Client;
-    private final S3Presigner presigner;
+        private final S3Client s3Client;
+        private final S3Presigner presigner;
+        private final JWTUtil jwtUtil;
+        private final MedicalDocumentRepository repo;
 
-    @Value("${aws.s3.bucket}")
-    private String bucketName;
+        @Value("${aws.s3.bucket}")
+        private String bucketName;
 
-    public FileResponse uploadFileAndGenerateUrl(MultipartFile file) {
-        try {
-            // 1. Generate unique file name
-            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        public FileResponse uploadAndSave(
+                        MultipartFile file,
+                        String docType,
+                        String desc,
+                        String recordDate,
+                        String token) {
+                try {
+                        String patientId = jwtUtil.extractUserId(token);
 
-            // 2. Upload to S3
-            PutObjectRequest putRequest = PutObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(fileName)
-                    .contentType(file.getContentType())
-                    .build();
+                        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 
-            s3Client.putObject(putRequest, RequestBody.fromBytes(file.getBytes()));
+                        PutObjectRequest putRequest = PutObjectRequest.builder()
+                                        .bucket(bucketName)
+                                        .key(fileName)
+                                        .contentType(file.getContentType())
+                                        .build();
 
-            // 3. Generate presigned URL
-            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(fileName)
-                    .build();
+                        s3Client.putObject(putRequest, RequestBody.fromBytes(file.getBytes()));
 
-            GetObjectPresignRequest presignRequest =
-                    GetObjectPresignRequest.builder()
-                            .signatureDuration(Duration.ofMinutes(10))
-                            .getObjectRequest(getObjectRequest)
-                            .build();
+                        // Generate S3 URL
+                        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                                        .bucket(bucketName)
+                                        .key(fileName)
+                                        .build();
 
-            URL url = presigner.presignGetObject(presignRequest).url();
+                        URL presignedUrl = presigner.presignGetObject(
+                                        GetObjectPresignRequest.builder()
+                                                        .getObjectRequest(getObjectRequest)
+                                                        .signatureDuration(Duration.ofMinutes(10))
+                                                        .build())
+                                        .url();
 
-            // 4. Return response object
-            return new FileResponse(fileName, "Uploaded Successfully", url.toString());
+                        // Save metadata in DB
+                        MedicalDocument doc = MedicalDocument.builder()
+                                        .patientId(patientId)
+                                        .documentType(docType)
+                                        .description(desc)
+                                        .recordDate(LocalDate.parse(recordDate))
+                                        .uploadedAt(LocalDate.now())
+                                        .fileName(fileName)
+                                        .fileUrl(presignedUrl.toString())
+                                        .build();
 
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to upload file: " + e.getMessage());
+                        repo.save(doc);
+
+                        return FileResponse.builder()
+                                        .id(doc.getId())
+                                        .fileName(doc.getFileName())
+                                        .fileUrl(doc.getFileUrl())
+                                        .documentType(doc.getDocumentType())
+                                        .description(doc.getDescription())
+                                        .recordDate(doc.getRecordDate().toString())
+                                        .uploadedAt(doc.getUploadedAt().toString())
+                                        .build();
+
+                } catch (Exception e) {
+                        e.printStackTrace();
+                        throw new RuntimeException("Upload failed: " + e.getMessage());
+                }
         }
-    }
 }
