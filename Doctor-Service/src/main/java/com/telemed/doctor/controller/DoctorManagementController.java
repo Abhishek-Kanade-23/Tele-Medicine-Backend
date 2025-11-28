@@ -49,4 +49,10 @@ public class DoctorManagementController {
         doctorService.deleteDoctor(doctorId);
         return "Doctor deleted successfully";
     }
+
+    @GetMapping("/check/{doctorId}")
+public DoctorResponseDTO checkDoctorExists(@PathVariable Long doctorId) {
+    return doctorService.checkDoctorExists(doctorId);
+}
+
 }

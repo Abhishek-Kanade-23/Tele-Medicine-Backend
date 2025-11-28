@@ -95,4 +95,26 @@ public class DoctorManagementService {
                 .phone(doctor.getPhone())
                 .build();
     }
+
+    public DoctorResponseDTO checkDoctorExists(Long doctorId) {
+
+    Doctor doctor = doctorRepository.findById(doctorId).orElse(null);
+
+    if (doctor == null) {
+        // Return EMPTY PROFILE
+        return DoctorResponseDTO.builder()
+                .doctorId(null)
+                .firstName("")
+                .lastName("")
+                .specialization(null)
+                .department(null)
+                .experience(0)
+                .email("")
+                .phone("")
+                .build();
+    }
+
+    return convertToResponse(doctor);
+}
+
 }

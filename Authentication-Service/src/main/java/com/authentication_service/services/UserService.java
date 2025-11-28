@@ -36,6 +36,10 @@ public class UserService implements UserDetailsService {
     @Autowired
     private PatientServiceClient patientServiceClient;
 
+    @Autowired
+    private DoctorServiceClient doctorServiceClient;
+
+
 
     @Autowired
     @Lazy
@@ -51,7 +55,7 @@ public class UserService implements UserDetailsService {
 
     public UserSignUpResponseDTO getUserSignUp(UserSignUpRequestDTO userSignUpRequestDTO) {
 
-        System.out.println("Received Request ==> " + userSignUpRequestDTO );
+        System.out.println("Received Request ==> " + userSignUpRequestDTO);
 
         List<Role> userRoles = userSignUpRequestDTO.getRoles()
                 .stream()
@@ -59,21 +63,42 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toList()) ;
 
         User createdUser = getNewUser(
-                userSignUpRequestDTO.getEmailId() ,
-                bcryptPasswordEncoder.encode( userSignUpRequestDTO.getPassword() ),
+                userSignUpRequestDTO.getEmailId(),
+                bcryptPasswordEncoder.encode(userSignUpRequestDTO.getPassword()),
                 userRoles
+        );
 
-        ) ;
+        userRepository.save(createdUser);
 
+        // ----------------------------------------------------------
+        //  ✔️ IF ROLE IS DOCTOR → CREATE DOCTOR PROFILE
+        // ----------------------------------------------------------
+        if (userSignUpRequestDTO.getRoles().contains("DOCTOR")) {
 
-        userRepository.save(createdUser) ;
+            DoctorCreateDTO doctorDto = new DoctorCreateDTO();
+            doctorDto.setDoctorId(createdUser.getUserId());
+            doctorDto.setFirstName("");   // empty now
+            doctorDto.setLastName("");
+            doctorDto.setSpecialization(null);
+            doctorDto.setDepartment(null);
+            doctorDto.setExperience("");
+            doctorDto.setEmail(createdUser.getEmailId());
+            doctorDto.setPhone("");
 
+            try {
+                doctorServiceClient.createDoctor(doctorDto);
+                System.out.println("Doctor profile created successfully");
+            } catch (Exception e) {
+                System.out.println("Failed to create doctor profile: " + e.getMessage());
+            }
+        }
 
         return new UserSignUpResponseDTO(
                 createdUser.getUserId(),
                 createdUser.getEmailId()
-        ) ;
+        );
     }
+
 
     private User getNewUser(String emailId , String password , List<Role> userRoles ){
         User newUser = new User() ;
@@ -85,8 +110,6 @@ public class UserService implements UserDetailsService {
 
     public UserSignInResponseDTO getUserSignIn(UserSignInRequestDTO userSignInRequestDTO) {
 
-        System.out.println("Received Request ==> " + userSignInRequestDTO);
-
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         userSignInRequestDTO.getEmailId(),
@@ -96,10 +119,7 @@ public class UserService implements UserDetailsService {
 
         User retrievedUser = (User) authentication.getPrincipal();
 
-        System.out.println("Retrieved User ==> " + retrievedUser);
-
-        List<String> userRoles = retrievedUser
-                .getRoles()
+        List<String> userRoles = retrievedUser.getRoles()
                 .stream()
                 .map(Role::getRoleType)
                 .collect(Collectors.toList());
@@ -110,40 +130,63 @@ public class UserService implements UserDetailsService {
                 retrievedUser.getEmailId()
         );
 
-        System.out.println("Generated Token ==> " + generatedToken);
-
-        // ----------------------------------------------------------
-        //  ✔️ CALL PATIENT SERVICE USING FEIGN CLIENT
-        // ----------------------------------------------------------
-        PatientDTO patientProfile = null;
-        boolean isProfileComplete = false;
-
-        try {
-            patientProfile = patientServiceClient.checkPatientExists(retrievedUser.getUserId());
-
-            // Check if profile is complete
-            if (patientProfile != null &&
-                    patientProfile.getName() != null &&
-                    !patientProfile.getName().isEmpty()) {
-                isProfileComplete = true;
-            }
-        } catch (Exception e) {
-            System.out.println("Error calling Patient Service: " + e.getMessage());
-            patientProfile = new PatientDTO(); // fallback
-        }
-
-        // ----------------------------------------------------------
-        //  ✔️ RETURN FULL RESPONSE
-        // ----------------------------------------------------------
-        return new UserSignInResponseDTO(
+        UserSignInResponseDTO response = new UserSignInResponseDTO(
                 retrievedUser.getEmailId(),
                 "Bearer " + generatedToken,
                 retrievedUser.getUserId(),
-                userRoles,
-                isProfileComplete,
-                patientProfile
+                userRoles
         );
+
+        boolean isProfileComplete = false;
+
+        // ----------------------------------------------------------
+        //    ROLE: PATIENT
+        // ----------------------------------------------------------
+        if (userRoles.contains("PATIENT")) {
+
+            try {
+                PatientDTO patientProfile = patientServiceClient.checkPatientExists(retrievedUser.getUserId());
+                response.setPatientProfile(patientProfile);
+
+                if (patientProfile != null &&
+                        patientProfile.getName() != null &&
+                        !patientProfile.getName().isEmpty()) {
+                    isProfileComplete = true;
+                }
+
+            } catch (Exception e) {
+                System.out.println("Patient service error: " + e.getMessage());
+                response.setPatientProfile(new PatientDTO());
+            }
+
+        }
+
+        // ----------------------------------------------------------
+        //    ROLE: DOCTOR
+        // ----------------------------------------------------------
+        if (userRoles.contains("DOCTOR")) {
+
+            try {
+                DoctorResponseDTO doctorProfile = doctorServiceClient.checkDoctorExists(retrievedUser.getUserId());
+                response.setDoctorProfile(doctorProfile);
+
+                if (doctorProfile != null &&
+                        doctorProfile.getFirstName() != null &&
+                        !doctorProfile.getFirstName().isEmpty()) {
+                    isProfileComplete = true;
+                }
+
+            } catch (Exception e) {
+                System.out.println("Doctor service error: " + e.getMessage());
+                response.setDoctorProfile(new DoctorResponseDTO());
+            }
+
+        }
+
+        response.setProfileComplete(isProfileComplete);
+        return response;
     }
+
 
 
     public GetAllRegisterredUsersDTO getAllRegisteredUsers() {
