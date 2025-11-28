@@ -18,23 +18,23 @@ public class Doctor {
     @Column(name = "doctor_id")
     private Long doctorId;   // manually assigned
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+   @Column(name = "first_name", nullable = true)
+private String firstName;
 
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
+@Column(name = "last_name", nullable = true)
+private String lastName;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Specialization specialization;
+@Enumerated(EnumType.STRING)
+@Column(nullable = true)
+private Specialization specialization;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Department department;
+@Enumerated(EnumType.STRING)
+@Column(nullable = true)
+private Department department;
 
-
-    @Column(nullable = false)
-    private int experience;  // years of experience
+@Column(nullable = true)
+private Integer experience;
+  // years of experience
 
     private String email;
     private String phone;

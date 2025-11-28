@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "doctor-service")
+@FeignClient(name = "DOCTER-SERVICE")
 public interface DoctorServiceClient {
 
     @PostMapping("/api/doctor/manage/create")
