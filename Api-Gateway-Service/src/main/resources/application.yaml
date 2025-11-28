@@ -96,8 +96,8 @@ spring:
           uri: lb://authentication-service
           predicates:
             - Path=/auth/**,/test/**
-        - id: doctor-service
-          uri: lb://doctor-service
+        - id: docter-service
+          uri: lb://docter-service
           predicates:
             - Path=/doctor/**
         - id: patient-service

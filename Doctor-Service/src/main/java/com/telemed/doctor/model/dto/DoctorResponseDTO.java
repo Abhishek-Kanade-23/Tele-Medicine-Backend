@@ -19,6 +19,7 @@ public class DoctorResponseDTO {
 
     private int experience;
 
-    private String email;
+    private String emailId;
     private String phone;
+    private String address ;
 }

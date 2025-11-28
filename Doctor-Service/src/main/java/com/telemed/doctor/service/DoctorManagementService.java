@@ -5,6 +5,7 @@ import com.telemed.doctor.model.Doctor;
 import com.telemed.doctor.model.dto.DoctorCreateDTO;
 import com.telemed.doctor.model.dto.DoctorUpdateDTO;
 import com.telemed.doctor.model.dto.DoctorResponseDTO;
+import com.telemed.doctor.model.enums.Gender;
 import com.telemed.doctor.repository.DoctorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,9 +21,9 @@ public class DoctorManagementService {
     // CREATE
     public DoctorResponseDTO createDoctor(DoctorCreateDTO dto) {
 
-        if (doctorRepository.existsByDoctorId(dto.getDoctorId())) {
-            throw new RuntimeException("Doctor with ID already exists.");
-        }
+//        if (doctorRepository.existsByDoctorId(dto.getDoctorId())) {
+//            throw new RuntimeException("Doctor with ID already exists.");
+//        }
 
         Doctor doctor = Doctor.builder()
                 .doctorId(dto.getDoctorId())
@@ -31,8 +32,10 @@ public class DoctorManagementService {
                 .specialization(dto.getSpecialization())
                 .department(dto.getDepartment())
                 .experience(dto.getExperience())
-                .email(dto.getEmail())
+                .emailId(dto.getEmailId())
                 .phone(dto.getPhone())
+                .gender(Gender.valueOf(dto.getGender()))
+                .address(dto.getAddress())
                 .build();
 
         Doctor saved = doctorRepository.save(doctor);
@@ -66,7 +69,7 @@ public class DoctorManagementService {
         doctor.setSpecialization(dto.getSpecialization());
         doctor.setDepartment(dto.getDepartment());
         doctor.setExperience(dto.getExperience());
-        doctor.setEmail(dto.getEmail());
+        doctor.setEmailId(dto.getEmail());
         doctor.setPhone(dto.getPhone());
 
         Doctor updated = doctorRepository.save(doctor);
@@ -91,8 +94,9 @@ public class DoctorManagementService {
                 .specialization(doctor.getSpecialization())
                 .department(doctor.getDepartment())
                 .experience(doctor.getExperience())
-                .email(doctor.getEmail())
+                .emailId(doctor.getEmailId())
                 .phone(doctor.getPhone())
+                .address(doctor.getAddress())
                 .build();
     }
 
@@ -109,7 +113,7 @@ public class DoctorManagementService {
                 .specialization(null)
                 .department(null)
                 .experience(0)
-                .email("")
+                .emailId("")
                 .phone("")
                 .build();
     }

@@ -19,6 +19,8 @@ public class DoctorCreateDTO {
 
     private int experience;
 
-    private String email;
+    private String emailId;
     private String phone;
+    private String gender ;
+    private String address ;
 }
