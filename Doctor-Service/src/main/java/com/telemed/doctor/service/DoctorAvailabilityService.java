@@ -6,6 +6,7 @@ import com.telemed.doctor.model.dto.AvailabilityDTO;
 import com.telemed.doctor.repository.DoctorAvailabilityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -32,10 +33,10 @@ public class DoctorAvailabilityService {
         return doctorAvailabilityRepository.findByDoctorId(doctorId);
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void deleteSlot(Long doctorId, Long slotId) {
         DoctorAvailability slot = doctorAvailabilityRepository.findById(slotId)
-            .orElseThrow(() -> new ResourceNotFoundException("Slot not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Slot not found"));
 
         if (!slot.getDoctorId().equals(doctorId)) {
             throw new ResourceNotFoundException("Slot does not belong to doctor");

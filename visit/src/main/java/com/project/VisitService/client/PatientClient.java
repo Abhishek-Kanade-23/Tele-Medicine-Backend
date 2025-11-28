@@ -27,7 +27,7 @@ public class PatientClient {
                     .onErrorResume(e -> Mono.empty());
 
             com.project.VisitService.dto.PatientDTO dto = mono.block();
-            return dto == null ? null : dto.getName();
+            return dto == null ? null : dto.getFirstName();
         } catch (Exception e) {
             return null;
         }

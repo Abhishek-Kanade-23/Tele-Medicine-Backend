@@ -722,3 +722,53 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact org.springfra
 	at org.eclipse.m2e.core.embedder.IMaven.execute(IMaven.java:300)
 	at org.eclipse.m2e.jdt.internal.DownloadSourcesJob.run(DownloadSourcesJob.java:149)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-11-28 15:47:38,514 [Worker-5: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2025-11-28 15:48:11,166 [Worker-4: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.telemed.doctor:doctor-service:1.0.0 @ C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Doctor-Service\pom.xml.
+2025-11-28 15:48:27,545 [Worker-4: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /Doctor-Service/src/main/java
+2025-11-28 15:48:27,550 [Worker-4: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Doctor-Service/src/main/resources
+2025-11-28 15:48:27,579 [Worker-4: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Doctor-Service/src/main/resources
+2025-11-28 15:48:27,608 [Worker-4: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /Doctor-Service/src/test/java
+2025-11-28 15:48:27,611 [Worker-4: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Doctor-Service/src/test/resources
+2025-11-28 15:48:42,324 [Worker-4: Importing Maven projects] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 40 sec
+2025-11-28 15:48:52,777 [Worker-3: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.eureka-registry-service:Eureka-registry-Service:0.0.1-SNAPSHOT @ C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Eureka-Registery-Service\pom.xml.
+2025-11-28 15:49:05,210 [Worker-3: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /Eureka-Registery-Service/src/main/java
+2025-11-28 15:49:05,212 [Worker-3: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Eureka-Registery-Service/src/main/resources
+2025-11-28 15:49:05,236 [Worker-3: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Eureka-Registery-Service/src/main/resources
+2025-11-28 15:49:05,244 [Worker-3: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /Eureka-Registery-Service/src/test/java
+2025-11-28 15:49:05,246 [Worker-3: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Eureka-Registery-Service/src/test/resources
+2025-11-28 15:49:16,460 [Worker-3: Importing Maven projects] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 31 sec
+2025-11-28 15:49:18,090 [Worker-9: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.project.VisitService:Visit-Service:0.0.1-SNAPSHOT @ C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\pom.xml.
+2025-11-28 15:49:22,791 [Worker-9: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /visit/src/main/java
+2025-11-28 15:49:22,794 [Worker-9: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /visit/src/main/resources
+2025-11-28 15:49:22,808 [Worker-9: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /visit/src/main/resources
+2025-11-28 15:49:22,870 [Worker-9: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /visit/src/test/java
+2025-11-28 15:49:22,872 [Worker-9: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /visit/src/test/resources
+2025-11-28 15:49:27,097 [Worker-9: Importing Maven projects] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 10 sec
+2025-11-28 15:49:29,857 [Worker-5: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.project.PatientService:PatientService:0.0.1-SNAPSHOT @ C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Patient-Service\pom.xml.
+2025-11-28 15:49:37,783 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /Patient-Service/src/main/java
+2025-11-28 15:49:37,785 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Patient-Service/src/main/resources
+2025-11-28 15:49:37,796 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Patient-Service/src/main/resources
+2025-11-28 15:49:37,807 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /Patient-Service/src/test/java
+2025-11-28 15:49:37,809 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Patient-Service/src/test/resources
+2025-11-28 15:49:46,782 [Worker-5: Importing Maven projects] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 19 sec
+2025-11-28 15:49:49,828 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-11-28 15:49:49,911 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-11-28 15:49:49,921 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Doctor-Service\src\test\resources
+2025-11-28 15:49:51,360 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-11-28 15:49:51,408 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-11-28 15:49:51,417 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Eureka-Registery-Service\src\test\resources
+2025-11-28 15:49:52,844 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-11-28 15:49:52,900 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-11-28 15:49:52,907 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Patient-Service\src\test\resources
+2025-11-28 15:49:54,195 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-11-28 15:49:54,249 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-11-28 15:49:54,258 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-11-28 16:16:10,445 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-11-28 16:16:10,484 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-11-28 16:16:10,498 [Worker-4: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Doctor-Service\src\test\resources
+2025-11-28 16:45:46,876 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-11-28 16:45:46,951 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-11-28 16:45:46,958 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-11-28 16:46:34,432 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-11-28 16:46:34,449 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-11-28 16:46:34,456 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources

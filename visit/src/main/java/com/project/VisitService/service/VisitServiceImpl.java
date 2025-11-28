@@ -69,10 +69,10 @@ public class VisitServiceImpl implements VisitService {
 
         try {
         notificationClient.sendAppointmentEmails(Map.of(
-                "patientEmail", patientDto.getEmail(),
+                "patientEmail", patientDto.getEmailId(),
                 "doctorEmail", "aniket.patil@encora.com",
                 "doctorName", doctor.getFirstName(),
-                "patientName", patientDto.getName(),
+                "patientName", patientDto.getFirstName(),
                 "appointmentDate", request.getScheduledTime().toLocalDate().toString(),
                 "appointmentTime", request.getScheduledTime().toLocalTime().toString()
         ));
