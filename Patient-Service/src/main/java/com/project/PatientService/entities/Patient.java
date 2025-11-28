@@ -18,7 +18,10 @@ public class Patient {
     private Long patientId;
 
     @Column(nullable = false)
-    private String name;
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
 
     @Column(nullable = false)
     private Integer age;
@@ -27,9 +30,14 @@ public class Patient {
 
     private String phone;
 
-    private String email;
+    private String emailId;
 
     private String address;
+
+    private float weight ;
+
+    private String bloodGroup ;
+
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -3,6 +3,7 @@ package com.project.PatientService.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.project.PatientService.DTO.PatientResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,30 +31,57 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 	@Override
-	public String addPatient(PatientDTO dto) {
+	public PatientResponseDTO addPatient(PatientDTO dto) {
+
+        System.out.println("Received Req ==>  " + dto  );
 
 		// Optional: basic duplicate check
 		if (dto.getPatientId() != null && patientRepository.existsById(dto.getPatientId())) {
-			return "Patient with ID " + dto.getPatientId() + " already exists";
+            System.out.println("Patient with ID " + dto.getPatientId() + " already exists");
+            return new PatientResponseDTO() ;
 		}
 
-		Patient entity = Patient.builder().patientId(dto.getPatientId()).name(dto.getName()).age(dto.getAge())
-				.gender(dto.getGender()).phone(dto.getPhone()).email(dto.getEmail()).address(dto.getAddress()).build();
+		Patient entity = Patient.builder()
+                .patientId(dto.getPatientId())
+                .firstName(dto.getFirstName())
+                .lastName(dto.getLastName())
+                .age(dto.getAge())
+				.gender(dto.getGender())
+                .phone(dto.getPhone())
+                .emailId(dto.getEmailId())
+                .address(dto.getAddress())
+                .weight(dto.getWeight())
+                .bloodGroup(dto.getBloodGroup())
+                .build();
 
-		patientRepository.save(entity);
+		Patient createdPatient = patientRepository.save(entity);
 
-		return "Patient added to the database";
+		return new PatientResponseDTO(
+                createdPatient.getPatientId(),
+                createdPatient.getFirstName(),
+                createdPatient.getLastName(),
+                createdPatient.getAge() ,
+                createdPatient.getGender(),
+                createdPatient.getPhone(),
+                createdPatient.getEmailId(),
+                createdPatient.getAddress(),
+                createdPatient.getWeight(),
+                createdPatient.getBloodGroup()
+        );
 	}
 
 	private PatientDTO convertToDTO(Patient patient) {
 		PatientDTO dto = new PatientDTO();
 		dto.setPatientId(patient.getPatientId());
-		dto.setName(patient.getName());
+		dto.setFirstName(patient.getFirstName());
+        dto.setLastName(patient.getLastName());
 		dto.setAge(patient.getAge());
 		dto.setGender(patient.getGender());
 		dto.setPhone(patient.getPhone());
-		dto.setEmail(patient.getEmail());
+		dto.setEmailId(patient.getEmailId());
 		dto.setAddress(patient.getAddress());
+        dto.setWeight(patient.getWeight());
+        dto.setBloodGroup(patient.getBloodGroup());
 		return dto;
 	}
 
@@ -63,13 +91,15 @@ public class PatientServiceImpl implements PatientService {
 		Patient existing = patientRepository.findById(patientId)
 				.orElseThrow(() -> new RuntimeException("Patient not found with ID: " + patientId));
 
-		existing.setName(dto.getName());
+		existing.setFirstName(dto.getFirstName());
+        existing.setLastName(dto.getLastName());
 		existing.setAge(dto.getAge());
 		existing.setGender(dto.getGender());
 		existing.setPhone(dto.getPhone());
-		existing.setEmail(dto.getEmail());
+		existing.setEmailId(dto.getEmailId());
 		existing.setAddress(dto.getAddress());
-
+        existing.setWeight(dto.getWeight());
+        existing.setBloodGroup(dto.getBloodGroup());
 		patientRepository.save(existing);
 		return "Patient updated successfully";
 	}
@@ -93,24 +123,29 @@ public class PatientServiceImpl implements PatientService {
             // Return empty DTO
             return PatientDTO.builder()
                     .patientId(null)
-                    .name("")
+                    .firstName("")
+                    .lastName("")
                     .age(null)
                     .gender("")
                     .phone("")
-                    .email("")
+                    .emailId("")
                     .address("")
+                    .weight(0.0f)
+                    .bloodGroup("")
                     .build();
         }
 
         // Return actual user profile
         return PatientDTO.builder()
                 .patientId(patient.getPatientId())
-                .name(patient.getName())
+                .firstName(patient.getFirstName())
+                .lastName(patient.getLastName())
                 .age(patient.getAge())
                 .gender(patient.getGender())
                 .phone(patient.getPhone())
-                .email(patient.getEmail())
+                .emailId(patient.getEmailId())
                 .address(patient.getAddress())
+                .bloodGroup(patient.getBloodGroup())
                 .build();
     }
 

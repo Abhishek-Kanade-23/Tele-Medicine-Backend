@@ -9,10 +9,13 @@ import lombok.*;
 public class PatientDTO {
 
     private Long patientId;
-    private String name;
+    private String firstName ;
+    private String lastName ;
     private Integer age;
     private String gender;
     private String phone;
-    private String email;
+    private String emailId;
     private String address;
+    private float weight ;
+    private String bloodGroup ;
 }

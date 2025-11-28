@@ -37,12 +37,15 @@ public class JWTAuthenticationFilter implements GlobalFilter ,Ordered {
         // 2. Extract authorization header
         String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
+        System.out.println("authHeader ==> " + authHeader);
+
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
 
         String token = authHeader.substring(7);
+        System.out.println("token ==> " + token);
 
         // 3. Validate token
         if (!jwtUtil.validateToken(token)) {

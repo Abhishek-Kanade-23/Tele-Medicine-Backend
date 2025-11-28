@@ -1,8 +1,10 @@
 package com.project.PatientService.controllers;
 
 import com.project.PatientService.DTO.PatientDTO;
+import com.project.PatientService.DTO.PatientResponseDTO;
 import com.project.PatientService.service.PatientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +28,10 @@ public class PatientController {
 	}
 
 	@PostMapping
-	public ResponseEntity<String> addPatient(@RequestBody PatientDTO patient) {
-		return ResponseEntity.ok(patientService.addPatient(patient));
+	public ResponseEntity<PatientResponseDTO> addPatient(@RequestBody PatientDTO patient) {
+
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(patientService.addPatient(patient));
 	}
 
 	@PutMapping("/{patientId}")
