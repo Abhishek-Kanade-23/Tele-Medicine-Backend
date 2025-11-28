@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/patient/appointment")
+@RequestMapping("/patients/appointment")
 @RequiredArgsConstructor
 public class AppointmentController {
 
