@@ -6,13 +6,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import com.tele_medicine.file_upload.util.JWTUtil;
 import com.tele_medicine.file_upload.repository.MedicalDocumentRepository;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
 
 @CrossOrigin(origins = "http://localhost:5173") // your React frontend
 @RestController
@@ -21,7 +19,6 @@ import java.util.Map;
 public class FileController {
 
     private final FileService fileService;
-    private final JWTUtil jwtUtil;
     private final MedicalDocumentRepository repo;
 
     @PostMapping(value = "/upload", consumes = "multipart/form-data")
@@ -30,7 +27,7 @@ public class FileController {
             @RequestParam String documentType,
             @RequestParam(required = false) String description,
             @RequestParam String recordDate,
-            @RequestHeader("Authorization") String token) {
+            @RequestHeader("X-Patient-Id") String token) {
 
         System.out.println("File Upload API HIT!");
         System.out.println("Received file = " + file.getOriginalFilename());
@@ -41,10 +38,23 @@ public class FileController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/patient")
-    public ResponseEntity<?> getDocs(@RequestHeader("Authorization") String token) {
-        String patientId = jwtUtil.extractUserId(token);
-        return ResponseEntity.ok(repo.findByPatientId(patientId));
+    @GetMapping("/download-url")
+    public ResponseEntity<String> getDownloadUrl(
+            @RequestParam String fileName,
+            @RequestHeader("X-Patient-Id") String patientId) {
+        String url = fileService.generatePresignedUrl(fileName, patientId);
+        return ResponseEntity.ok(url);
+    }
+
+    @GetMapping("/list")
+    public List<FileResponse> getFiles(@RequestHeader("X-Patient-Id") String patientId) {
+        return fileService.getAllFiles(patientId);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteFile(@PathVariable Long id) {
+        fileService.deleteFile(id);
+        return ResponseEntity.ok("Deleted successfully");
     }
 
 }

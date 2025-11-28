@@ -16,7 +16,7 @@ public class MedicalDocument {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String patientId;      // From JWT
+    private String patientId; // From JWT
     private String documentType;
     @Column(length = 2000)
     private String description;
@@ -24,12 +24,8 @@ public class MedicalDocument {
     private LocalDate recordDate;
     private LocalDate uploadedAt;
 
-    @Column(length = 5000)
-private String fileUrl;
+    @Column(length = 1000)
+    private String fileName;
 
-@Column(length = 1000)
-private String fileName;
-
-
-      // S3 link
+    
 }

@@ -3,7 +3,6 @@ package com.tele_medicine.file_upload.service;
 import com.tele_medicine.file_upload.dto.FileResponse;
 import com.tele_medicine.file_upload.entity.MedicalDocument;
 import com.tele_medicine.file_upload.repository.MedicalDocumentRepository;
-import com.tele_medicine.file_upload.util.JWTUtil;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +17,7 @@ import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignReques
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,11 +25,12 @@ public class FileService {
 
         private final S3Client s3Client;
         private final S3Presigner presigner;
-        private final JWTUtil jwtUtil;
         private final MedicalDocumentRepository repo;
 
         @Value("${aws.s3.bucket}")
         private String bucketName;
+
+        // UPLOAD & SAVE METADATA
 
         public FileResponse uploadAndSave(
                         MultipartFile file,
@@ -37,8 +38,10 @@ public class FileService {
                         String desc,
                         String recordDate,
                         String token) {
+
                 try {
-                        String patientId = jwtUtil.extractUserId(token);
+                        String patientId = token;
+                        System.out.println(patientId);
 
                         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 
@@ -50,20 +53,6 @@ public class FileService {
 
                         s3Client.putObject(putRequest, RequestBody.fromBytes(file.getBytes()));
 
-                        // Generate S3 URL
-                        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                                        .bucket(bucketName)
-                                        .key(fileName)
-                                        .build();
-
-                        URL presignedUrl = presigner.presignGetObject(
-                                        GetObjectPresignRequest.builder()
-                                                        .getObjectRequest(getObjectRequest)
-                                                        .signatureDuration(Duration.ofMinutes(10))
-                                                        .build())
-                                        .url();
-
-                        // Save metadata in DB
                         MedicalDocument doc = MedicalDocument.builder()
                                         .patientId(patientId)
                                         .documentType(docType)
@@ -71,7 +60,6 @@ public class FileService {
                                         .recordDate(LocalDate.parse(recordDate))
                                         .uploadedAt(LocalDate.now())
                                         .fileName(fileName)
-                                        .fileUrl(presignedUrl.toString())
                                         .build();
 
                         repo.save(doc);
@@ -79,7 +67,6 @@ public class FileService {
                         return FileResponse.builder()
                                         .id(doc.getId())
                                         .fileName(doc.getFileName())
-                                        .fileUrl(doc.getFileUrl())
                                         .documentType(doc.getDocumentType())
                                         .description(doc.getDescription())
                                         .recordDate(doc.getRecordDate().toString())
@@ -87,8 +74,84 @@ public class FileService {
                                         .build();
 
                 } catch (Exception e) {
-                        e.printStackTrace();
                         throw new RuntimeException("Upload failed: " + e.getMessage());
                 }
         }
+
+        // GENERATE FRESH PRESIGNED URL
+        public FileResponse generateDownloadUrl(Long id) {
+
+                MedicalDocument doc = repo.findById(id)
+                                .orElseThrow(() -> new RuntimeException("Document not found"));
+
+                GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                                .bucket(bucketName)
+                                .key(doc.getFileName())
+                                .build();
+
+                URL url = presigner.presignGetObject(
+                                GetObjectPresignRequest.builder()
+                                                .getObjectRequest(getObjectRequest)
+                                                .signatureDuration(Duration.ofMinutes(10)) // Fresh URL
+                                                .build())
+                                .url();
+
+                return FileResponse.builder()
+                                .id(doc.getId())
+                                .fileName(doc.getFileName())
+                                .fileUrl(url.toString()) // finally added here
+                                .build();
+        }
+
+        // LIST ALL FILES FOR A PATIENT
+        public List<FileResponse> getAllFiles(String patientId) {
+                List<MedicalDocument> documents = repo.findByPatientId(patientId);
+                return documents.stream().map(doc -> FileResponse.builder()
+                                .id(doc.getId())
+                                .fileName(doc.getFileName())
+                                .documentType(doc.getDocumentType())
+                                .description(doc.getDescription())
+                                .recordDate(doc.getRecordDate().toString())
+                                .uploadedAt(doc.getUploadedAt().toString())
+                                .build()).toList();
+        }
+
+        // GENERATE PRESIGNED URL FOR GIVEN FILENAME AND PATIENT ID
+        public String generatePresignedUrl(String fileName, String patientId) {
+
+                // Optional: check DB to make sure file belongs to this patient
+                MedicalDocument doc = repo.findByFileName(fileName);
+                if (doc == null || !doc.getPatientId().equals(patientId)) {
+                        throw new RuntimeException("Unauthorized or file not found");
+                }
+
+                GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                                .bucket(bucketName)
+                                .key(fileName)
+                                .build();
+
+                URL presignedUrl = presigner.presignGetObject(
+                                GetObjectPresignRequest.builder()
+                                                .getObjectRequest(getObjectRequest)
+                                                .signatureDuration(Duration.ofMinutes(10))
+                                                .build())
+                                .url();
+
+                return presignedUrl.toString();
+        }
+
+        // DELETE FILE
+        public void deleteFile(Long documentId) {
+                MedicalDocument doc = repo.findById(documentId)
+                                .orElseThrow(() -> new RuntimeException("Document not found"));
+                DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                                .bucket(bucketName)
+                                .key(doc.getFileName())
+                                .build();
+
+                s3Client.deleteObject(deleteObjectRequest);
+
+                repo.delete(doc);
+        }
+
 }
