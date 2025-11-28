@@ -87,4 +87,15 @@ public class VisitServiceClient {
                 .bodyToMono(ConsultationResponseDTO.class)
                 .block();
     }
+    public void updateVisitStatus(Long visitId, String status) {
+        visitServiceWebClient.put()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/visits/{visitId}/status")
+                        .queryParam("status", status)
+                        .build(visitId)
+                )
+                .retrieve()
+                .bodyToMono(Void.class)
+                .block();
+    }
 }

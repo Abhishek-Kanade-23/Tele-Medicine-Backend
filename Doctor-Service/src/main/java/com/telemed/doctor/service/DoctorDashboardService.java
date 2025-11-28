@@ -4,6 +4,8 @@ import com.telemed.doctor.client.VisitServiceClient;
 import com.telemed.doctor.model.dto.DashboardResponseDTO;
 import com.telemed.doctor.model.dto.VisitSummaryDTO;
 import com.telemed.doctor.repository.DoctorPatientMapRepository;
+import com.telemed.doctor.repository.DoctorRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,7 @@ public class DoctorDashboardService {
 
     private final DoctorPatientMapRepository doctorPatientMapRepository;
     private final VisitServiceClient visitServiceClient;
+    private final DoctorRepository doctorRepository;
 
     /**
      * Public API used by controller - this method intentionally does DB reads first (short transaction)
@@ -54,5 +57,16 @@ public class DoctorDashboardService {
     @Transactional(readOnly = true)
     protected int getTotalPatientsForDoctor(Long doctorId) {
         return doctorPatientMapRepository.findByDoctorId(doctorId).size();
+    }
+    
+    public void updateVisitStatus(Long doctorId, Long visitId, String status) {
+
+        // Validate doctor exists
+        if (!doctorRepository.existsByDoctorId(doctorId)) {
+            throw new RuntimeException("Doctor not found: " + doctorId);
+        }
+
+        // Call Visit-Service to update status
+        visitServiceClient.updateVisitStatus(visitId, status);
     }
 }
