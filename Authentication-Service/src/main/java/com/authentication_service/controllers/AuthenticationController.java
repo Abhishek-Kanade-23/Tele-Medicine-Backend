@@ -3,6 +3,7 @@ package com.authentication_service.controllers;
 
 import com.authentication_service.dtos.*;
 import com.authentication_service.entities.User;
+import com.authentication_service.services.PatientServiceClient;
 import com.authentication_service.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class AuthenticationController {
 
     @Autowired
     private UserService userService ;
+
+    @Autowired
+    private PatientServiceClient patientServiceClient;
 
     @GetMapping("/home")
     public ResponseEntity getHomePage(){

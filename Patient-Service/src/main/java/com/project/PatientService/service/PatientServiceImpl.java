@@ -85,4 +85,34 @@ public class PatientServiceImpl implements PatientService {
 		return "Patient deleted successfully";
 	}
 
+    @Override
+    public PatientDTO checkPatientExists(Long patientId) {
+        Patient patient = patientRepository.findById(patientId).orElse(null);
+
+        if (patient == null) {
+            // Return empty DTO
+            return PatientDTO.builder()
+                    .patientId(null)
+                    .name("")
+                    .age(null)
+                    .gender("")
+                    .phone("")
+                    .email("")
+                    .address("")
+                    .build();
+        }
+
+        // Return actual user profile
+        return PatientDTO.builder()
+                .patientId(patient.getPatientId())
+                .name(patient.getName())
+                .age(patient.getAge())
+                .gender(patient.getGender())
+                .phone(patient.getPhone())
+                .email(patient.getEmail())
+                .address(patient.getAddress())
+                .build();
+    }
+
+
 }

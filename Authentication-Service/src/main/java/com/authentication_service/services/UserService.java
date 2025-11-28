@@ -33,6 +33,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     private JwtUtility jwtUtility ;
 
+    @Autowired
+    private PatientServiceClient patientServiceClient;
+
 
     @Autowired
     @Lazy
@@ -81,34 +84,67 @@ public class UserService implements UserDetailsService {
     }
 
     public UserSignInResponseDTO getUserSignIn(UserSignInRequestDTO userSignInRequestDTO) {
-        System.out.println("Received Request ==> " + userSignInRequestDTO );
+
+        System.out.println("Received Request ==> " + userSignInRequestDTO);
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                       userSignInRequestDTO.getEmailId() ,
-                       userSignInRequestDTO.getPassword()
+                        userSignInRequestDTO.getEmailId(),
+                        userSignInRequestDTO.getPassword()
                 )
-        ) ;
+        );
 
-        User retrivedUser = (User) authentication.getPrincipal() ;
+        User retrievedUser = (User) authentication.getPrincipal();
 
-        System.out.println("Retrived User ==> " + retrivedUser );
+        System.out.println("Retrieved User ==> " + retrievedUser);
 
-        List<String> userRoles = retrivedUser
+        List<String> userRoles = retrievedUser
                 .getRoles()
                 .stream()
-                .map((role)-> role.getRoleType())
+                .map(Role::getRoleType)
                 .collect(Collectors.toList());
 
-        String generatedToken = (String) jwtUtility.generateToken(retrivedUser.getUserId(),userRoles, retrivedUser.getEmailId() );
-
+        String generatedToken = jwtUtility.generateToken(
+                retrievedUser.getUserId(),
+                userRoles,
+                retrievedUser.getEmailId()
+        );
 
         System.out.println("Generated Token ==> " + generatedToken);
 
+        // ----------------------------------------------------------
+        //  ✔️ CALL PATIENT SERVICE USING FEIGN CLIENT
+        // ----------------------------------------------------------
+        PatientDTO patientProfile = null;
+        boolean isProfileComplete = false;
 
+        try {
+            patientProfile = patientServiceClient.checkPatientExists(retrievedUser.getUserId());
 
-        return new UserSignInResponseDTO(retrivedUser.getEmailId(),"Bearer "+ generatedToken , retrivedUser.getUserId(),userRoles) ;
+            // Check if profile is complete
+            if (patientProfile != null &&
+                    patientProfile.getName() != null &&
+                    !patientProfile.getName().isEmpty()) {
+                isProfileComplete = true;
+            }
+        } catch (Exception e) {
+            System.out.println("Error calling Patient Service: " + e.getMessage());
+            patientProfile = new PatientDTO(); // fallback
+        }
+
+        // ----------------------------------------------------------
+        //  ✔️ RETURN FULL RESPONSE
+        // ----------------------------------------------------------
+        return new UserSignInResponseDTO(
+                retrievedUser.getEmailId(),
+                "Bearer " + generatedToken,
+                retrievedUser.getUserId(),
+                userRoles,
+                isProfileComplete,
+                patientProfile
+        );
     }
+
 
     public GetAllRegisterredUsersDTO getAllRegisteredUsers() {
 

@@ -39,4 +39,9 @@ public class PatientController {
 	public ResponseEntity<String> deletePatient(@PathVariable Long patientId) {
 		return ResponseEntity.ok(patientService.deletePatient(patientId));
 	}
+    @GetMapping("/check/{patientId}")
+    public ResponseEntity<PatientDTO> checkPatientExists(@PathVariable Long patientId) {
+        return ResponseEntity.ok(patientService.checkPatientExists(patientId));
+    }
+
 }

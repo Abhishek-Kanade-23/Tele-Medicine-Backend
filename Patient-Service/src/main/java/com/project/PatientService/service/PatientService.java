@@ -11,4 +11,6 @@ public interface PatientService {
 	String addPatient(PatientDTO patient);
 	String updatePatient(Long patientId, PatientDTO patient);
     String deletePatient(Long patientId);
+    PatientDTO checkPatientExists(Long patientId);
+
 }
