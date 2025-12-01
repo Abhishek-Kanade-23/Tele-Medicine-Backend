@@ -67,18 +67,18 @@ public class VisitServiceImpl implements VisitService {
             doctorClient.createMapping(request.getDoctorId(), request.getPatientId());
         } catch (Exception ignored) {}
 
-        try {
-        notificationClient.sendAppointmentEmails(Map.of(
-                "patientEmail", patientDto.getEmailId(),
-                "doctorEmail", "aniket.patil@encora.com",
-                "doctorName", doctor.getFirstName(),
-                "patientName", patientDto.getFirstName(),
-                "appointmentDate", request.getScheduledTime().toLocalDate().toString(),
-                "appointmentTime", request.getScheduledTime().toLocalTime().toString()
-        ));
-    } catch (Exception ex) {
-        System.out.println("Email sending failed: " + ex.getMessage());
-    }
+    //     try {
+    //     notificationClient.sendAppointmentEmails(Map.of(
+    //             "patientEmail", "seriy81661@bialode.com",
+    //             "doctorEmail", "aniket.patil@encora.com",
+    //             "doctorName", doctor.getFirstName(),
+    //             "patientName", patientDto.getFirstName(),
+    //             "appointmentDate", request.getScheduledTime().toLocalDate().toString(),
+    //             "appointmentTime", request.getScheduledTime().toLocalTime().toString()
+    //     ));
+    // } catch (Exception ex) {
+    //     System.out.println("Email sending failed: " + ex.getMessage());
+    // }
 
         return BookVisitResponse.builder()
                 .visitId(saved.getVisitId())

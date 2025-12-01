@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "DOCTER-SERVICE")
 public interface DoctorServiceClient {
 
-    @PostMapping("/api/doctor/manage/create")
+    @PostMapping("/doctor/manage/create")
     DoctorResponseDTO createDoctor(@RequestBody DoctorCreateDTO dto);
 
-    @GetMapping("/api/doctor/manage/check/{doctorId}")
+    @GetMapping("/doctor/manage/check/{doctorId}")
     DoctorResponseDTO checkDoctorExists(@PathVariable("doctorId") Long doctorId);
 }
