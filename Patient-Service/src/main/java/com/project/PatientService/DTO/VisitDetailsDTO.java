@@ -25,4 +25,6 @@ public class VisitDetailsDTO {
 
     // prescription (lightweight)
     private Long prescriptionId;
+    private String videoLink;
+
 }

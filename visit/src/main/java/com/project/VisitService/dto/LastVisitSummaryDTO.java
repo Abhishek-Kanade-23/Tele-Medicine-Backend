@@ -12,4 +12,6 @@ public class LastVisitSummaryDTO {
     private Long lastConsultationId;
     private LocalDateTime lastConsultationTime;
     private Long lastPrescriptionId;
+    private String videoLink;
+
 }

@@ -21,4 +21,6 @@ public class VisitSummaryDTO {
     private String reason;
     private Long prescriptionId;
     private Long consultationId;
+    private String videoLink;
+
 }

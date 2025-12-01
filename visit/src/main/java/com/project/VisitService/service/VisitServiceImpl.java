@@ -27,6 +27,20 @@ public class VisitServiceImpl implements VisitService {
     private final DoctorClient doctorClient;
     private final PatientClient patientClient;
     private final NotificationClient notificationClient;
+    
+    private static final List<String> VIDEO_LINKS = List.of(
+            "https://zoom.com/encora-room-1",
+            "https://meet.google.com/encora-room-2",
+            "https://jitsi.org/encora-room-3",
+            "https://mytelemed.com/roomA123",
+            "https://mytelemed.com/roomB234",
+            "https://mytelemed.com/roomC345"
+    );
+    
+    private String getRandomVideoLink() {
+        Random random = new Random();
+        return VIDEO_LINKS.get(random.nextInt(VIDEO_LINKS.size()));
+    }
 
 
     // ---------------------------
@@ -58,6 +72,7 @@ public class VisitServiceImpl implements VisitService {
                 .scheduledTime(request.getScheduledTime())
                 .status(Visit.VisitStatus.SCHEDULED)
                 .reason(request.getReason())
+                .videoLink(getRandomVideoLink())
                 .build();
 
         Visit saved = visitRepository.save(visit);
@@ -82,6 +97,7 @@ public class VisitServiceImpl implements VisitService {
 
         return BookVisitResponse.builder()
                 .visitId(saved.getVisitId())
+                .videoLink(saved.getVideoLink())
                 .message("Visit booked successfully")
                 .build();
     }
@@ -104,7 +120,8 @@ public class VisitServiceImpl implements VisitService {
                     .patientId(v.getPatientId())
                     .scheduledTime(v.getScheduledTime())
                     .status(v.getStatus().name())
-                    .reason(v.getReason());
+                    .reason(v.getReason())
+                    .videoLink(v.getVideoLink());
 
             // doctor name (non-blocking)
             try {
@@ -150,6 +167,7 @@ public class VisitServiceImpl implements VisitService {
                     .status(v.getStatus().name())
                     .scheduledTime(v.getScheduledTime())
                     .reason(v.getReason())
+                    .videoLink(v.getVideoLink())
                     .consultationId(
                             consultationRepository.findByVisitId(v.getVisitId())
                                     .map(Consultation::getConsultationId).orElse(null)
@@ -187,6 +205,7 @@ public class VisitServiceImpl implements VisitService {
                 .scheduledTime(v.getScheduledTime())
                 .status(v.getStatus().name())
                 .reason(v.getReason())
+                .videoLink(v.getVideoLink())
                 .build()
         ).collect(Collectors.toList());
     }
@@ -209,6 +228,7 @@ public class VisitServiceImpl implements VisitService {
                 .scheduledTime(visit.getScheduledTime())
                 .status(visit.getStatus().name())
                 .reason(visit.getReason())
+                .videoLink(visit.getVideoLink())
                 .build();
 
         try {

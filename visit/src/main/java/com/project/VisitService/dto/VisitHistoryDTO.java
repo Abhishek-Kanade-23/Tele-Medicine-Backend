@@ -22,4 +22,6 @@ public class VisitHistoryDTO {
 
     private Long consultationId;
     private Long prescriptionId;
+    private String videoLink;
+
 }

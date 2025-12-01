@@ -784,3 +784,104 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact org.springfra
 2025-11-28 17:38:23,539 [Worker-1: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
 2025-11-28 17:38:23,551 [Worker-1: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
 2025-11-28 17:38:23,555 [Worker-1: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Doctor-Service\src\test\resources
+2025-12-01 19:59:13,246 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2025-12-01 20:00:03,239 [Worker-5: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.telemed.doctor:doctor-service:1.0.0 @ C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Doctor-Service\pom.xml.
+2025-12-01 20:00:20,247 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /Doctor-Service/src/main/java
+2025-12-01 20:00:20,251 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Doctor-Service/src/main/resources
+2025-12-01 20:00:20,267 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Doctor-Service/src/main/resources
+2025-12-01 20:00:20,288 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /Doctor-Service/src/test/java
+2025-12-01 20:00:20,291 [Worker-5: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Doctor-Service/src/test/resources
+2025-12-01 20:00:32,933 [Worker-5: Importing Maven projects] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 37 sec
+2025-12-01 20:00:37,402 [Worker-6: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.project.PatientService:PatientService:0.0.1-SNAPSHOT @ C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Patient-Service\pom.xml.
+2025-12-01 20:00:47,269 [Worker-6: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /Patient-Service/src/main/java
+2025-12-01 20:00:47,271 [Worker-6: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Patient-Service/src/main/resources
+2025-12-01 20:00:47,281 [Worker-6: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Patient-Service/src/main/resources
+2025-12-01 20:00:47,289 [Worker-6: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /Patient-Service/src/test/java
+2025-12-01 20:00:47,292 [Worker-6: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Patient-Service/src/test/resources
+2025-12-01 20:00:56,851 [Worker-6: Importing Maven projects] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 22 sec
+2025-12-01 20:00:58,548 [Worker-0: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.project.VisitService:Visit-Service:0.0.1-SNAPSHOT @ C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\pom.xml.
+2025-12-01 20:01:03,704 [Worker-0: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /visit/src/main/java
+2025-12-01 20:01:03,709 [Worker-0: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /visit/src/main/resources
+2025-12-01 20:01:03,748 [Worker-0: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /visit/src/main/resources
+2025-12-01 20:01:03,780 [Worker-0: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /visit/src/test/java
+2025-12-01 20:01:03,782 [Worker-0: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /visit/src/test/resources
+2025-12-01 20:01:08,853 [Worker-0: Importing Maven projects] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 11 sec
+2025-12-01 20:01:17,653 [Worker-0: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.eureka-registry-service:Eureka-registry-Service:0.0.1-SNAPSHOT @ C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Eureka-Registery-Service\pom.xml.
+2025-12-01 20:01:30,105 [Worker-0: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /Eureka-Registery-Service/src/main/java
+2025-12-01 20:01:30,107 [Worker-0: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Eureka-Registery-Service/src/main/resources
+2025-12-01 20:01:30,113 [Worker-0: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Eureka-Registery-Service/src/main/resources
+2025-12-01 20:01:30,121 [Worker-0: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /Eureka-Registery-Service/src/test/java
+2025-12-01 20:01:30,123 [Worker-0: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /Eureka-Registery-Service/src/test/resources
+2025-12-01 20:01:39,822 [Worker-0: Importing Maven projects] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 30 sec
+2025-12-01 20:01:41,746 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:01:41,815 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:01:41,823 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Doctor-Service\src\test\resources
+2025-12-01 20:01:43,113 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-12-01 20:01:43,133 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:01:43,141 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Eureka-Registery-Service\src\test\resources
+2025-12-01 20:01:44,256 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:01:44,292 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:01:44,299 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Patient-Service\src\test\resources
+2025-12-01 20:01:45,514 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:01:45,560 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:01:45,567 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:05:58,852 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:05:58,869 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:05:58,875 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:06:22,177 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:06:22,190 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:06:22,196 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:06:39,460 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:06:39,471 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:06:39,476 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:07:04,695 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:07:04,707 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:07:04,711 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:07:36,364 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:07:36,383 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:07:36,386 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:07:45,630 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:07:45,642 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:07:45,647 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:07:53,775 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:07:53,785 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:07:53,790 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:08:07,226 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:08:07,237 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:08:07,242 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:08:58,827 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:08:58,840 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:08:58,844 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Doctor-Service\src\test\resources
+2025-12-01 20:09:11,191 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:09:11,204 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:09:11,208 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Doctor-Service\src\test\resources
+2025-12-01 20:10:13,875 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:10:13,887 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:10:13,890 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Patient-Service\src\test\resources
+2025-12-01 20:10:37,327 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:10:37,339 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:10:37,343 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Patient-Service\src\test\resources
+2025-12-01 20:10:51,307 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:10:51,318 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:10:51,323 [Worker-8: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Patient-Service\src\test\resources
+2025-12-01 20:14:59,184 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:14:59,212 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:14:59,220 [Worker-5: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:16:27,921 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:16:27,932 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:16:27,935 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:16:53,275 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:16:53,297 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:16:53,301 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:17:38,338 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:17:38,396 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:17:38,400 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:17:53,093 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:17:53,108 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:17:53,113 [Worker-3: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:18:10,022 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:18:10,036 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:18:10,041 [Worker-6: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\visit\src\test\resources
+2025-12-01 20:20:50,657 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 2 resources from src\main\resources to target\classes
+2025-12-01 20:20:50,686 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-12-01 20:20:50,689 [Worker-11: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\MOKSH.OSWAL\OneDrive - ENCORA\Desktop\Tele-Medicine-Backend\Doctor-Service\src\test\resources

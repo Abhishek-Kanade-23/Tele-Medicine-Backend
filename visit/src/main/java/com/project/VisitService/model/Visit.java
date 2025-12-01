@@ -32,6 +32,9 @@ public class Visit {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private VisitStatus status = VisitStatus.SCHEDULED;
+    
+    @Column(name = "video_link")
+    private String videoLink;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

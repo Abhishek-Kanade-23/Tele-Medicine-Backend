@@ -27,4 +27,6 @@ public class VisitDetailsDTO {
     private String followUpDate;
 
     private Long prescriptionId;
+    private String videoLink;
+
 }
