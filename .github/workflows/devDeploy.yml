@@ -7,7 +7,8 @@ on:
   workflow_dispatch:
 
 env:
-  SERVICES: Api-Gateway-Service,Authentication-Service,Eureka-Registery-Service
+  SERVICES: Api-Gateway-Service,Authentication-Service,Eureka-registry-Service
+  AWS_REGION: ap-south-1
 
 jobs:
   build-push:
@@ -33,7 +34,7 @@ jobs:
       - name: Login to ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build & Push each service (Maven only)
+      - name: Build & Push Docker Images
         run: |
           IFS=',' read -ra SERVICES_ARR <<< "$SERVICES"
 
@@ -47,20 +48,20 @@ jobs:
             # Prepare variables
             SERVICE_NAME=$(echo $service | tr '[:upper:]' '[:lower:]')
             REPO_NAME="telemedicine-$SERVICE_NAME"
-            IMAGE_URI="${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$REPO_NAME:${{ github.sha }}"
+            IMAGE_URI="${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${AWS_REGION}.amazonaws.com/$REPO_NAME:${{ github.sha }}"
 
-            # Create ECR repo if not exists
+            # Create ECR repo if missing
             aws ecr describe-repositories --repository-names $REPO_NAME >/dev/null 2>&1 || \
             aws ecr create-repository --repository-name $REPO_NAME
 
-            # Build Docker image (context = service folder)
+            # Build Docker image from Dockerfile inside service folder
             docker build -t $REPO_NAME:${{ github.sha }} .
 
-            # Tag & push
+            # Tag + Push
             docker tag $REPO_NAME:${{ github.sha }} $IMAGE_URI
             docker push $IMAGE_URI
 
-            echo "Pushed: $IMAGE_URI"
+            echo "Pushed Image: $IMAGE_URI"
 
             cd ..
           done
