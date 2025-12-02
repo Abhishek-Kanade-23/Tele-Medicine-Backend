@@ -9,6 +9,7 @@ on:
 env:
   SERVICES: Api-Gateway-Service,Authentication-Service,Eureka-registry-Service
   AWS_REGION: ap-south-1
+  AWS_ACCOUNT_ID: 471112677067   # <-- HARDCODED
 
 jobs:
   build-push:
@@ -48,13 +49,14 @@ jobs:
             # Prepare variables
             SERVICE_NAME=$(echo $service | tr '[:upper:]' '[:lower:]')
             REPO_NAME="telemedicine-$SERVICE_NAME"
-            IMAGE_URI="${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${AWS_REGION}.amazonaws.com/$REPO_NAME:${{ github.sha }}"
+
+            IMAGE_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPO_NAME}:${{ github.sha }}"
 
             # Create ECR repo if missing
             aws ecr describe-repositories --repository-names $REPO_NAME >/dev/null 2>&1 || \
             aws ecr create-repository --repository-name $REPO_NAME
 
-            # Build Docker image from Dockerfile inside service folder
+            # Build Docker image
             docker build -t $REPO_NAME:${{ github.sha }} .
 
             # Tag + Push
