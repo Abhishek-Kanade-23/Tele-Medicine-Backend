@@ -58,7 +58,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://telemedicine-alb-1127388234.ap-south-1.elb.amazonaws.com:8761/eureka/
+      defaultZone: http://172.31.15.163:8761/eureka/
   instance:
     prefer-ip-address: true
 
