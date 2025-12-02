@@ -90,7 +90,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://telemedicine-alb-1127388234.ap-south-1.elb.amazonaws.com:8761/
+      defaultZone: http://172.31.38.231:8761/eureka/
   instance:
     prefer-ip-address: true
 
