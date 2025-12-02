@@ -12,12 +12,12 @@ env:
   AWS_ACCOUNT_ID: 471112677067
   CLUSTER_NAME: telemedicine-cluster
 
-  # ECS service names
+  # ECS service names (Corrected)
   API_GATEWAY_ECS_SERVICE: api-gateway-task-service-b17fkyzb
-  AUTH_ECS_SERVICE: authentication-task-service-xxxxx
+  AUTH_ECS_SERVICE: authentication-task-service-lvqt1sjh
   EUREKA_ECS_SERVICE: eureka-task-service-47g1l5m5
 
-  # ECS task definition families
+  # ECS task family names
   API_GATEWAY_TASK_FAMILY: api-gateway-task
   AUTH_TASK_FAMILY: authentication-task
   EUREKA_TASK_FAMILY: eureka-task
@@ -46,12 +46,13 @@ jobs:
       - name: Login to ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build & Push Docker Images + Deploy to ECS
+      - name: Build, Push Images & Deploy to ECS
         run: |
           IFS=',' read -ra SERVICES_ARR <<< "$SERVICES"
 
           for service in "${SERVICES_ARR[@]}"; do
             echo "============ Building $service ============"
+
             cd $service
 
             mvn -q -DskipTests clean package
@@ -61,8 +62,9 @@ jobs:
             IMAGE_TAG="${{ github.sha }}"
             IMAGE_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPO_NAME}:${IMAGE_TAG}"
 
+            # Create repo if not exists
             aws ecr describe-repositories --repository-names $REPO_NAME >/dev/null 2>&1 || \
-            aws ecr create-repository --repository-name $REPO_NAME
+               aws ecr create-repository --repository-name $REPO_NAME
 
             docker build -t $REPO_NAME:${IMAGE_TAG} .
             docker tag $REPO_NAME:${IMAGE_TAG} $IMAGE_URI
@@ -74,7 +76,7 @@ jobs:
 
             echo "============ Updating ECS Service ============"
 
-            # Select ECS service name & task family dynamically
+            # Map service -> task family
             if [ "$service" == "Api-Gateway-Service" ]; then
               ECS_SERVICE=$API_GATEWAY_ECS_SERVICE
               TASK_FAMILY=$API_GATEWAY_TASK_FAMILY
@@ -86,26 +88,32 @@ jobs:
               TASK_FAMILY=$EUREKA_TASK_FAMILY
             fi
 
-            # Fetch current task definition JSON
+            echo "Deploying to ECS Service: $ECS_SERVICE"
+
+            # Get current task definition JSON
             TASK_JSON=$(aws ecs describe-task-definition --task-definition $TASK_FAMILY)
 
-            # Create new task definition with updated image
-            NEW_TASK_JSON=$(echo $TASK_JSON | \
-              jq --arg IMAGE "$IMAGE_URI" \
-              '.taskDefinition |
-              {family: .family, networkMode: .networkMode, containerDefinitions: (.containerDefinitions | map(.image = $IMAGE)), executionRoleArn: .executionRoleArn, taskRoleArn: .taskRoleArn, requiresCompatibilities: .requiresCompatibilities, cpu: .cpu, memory: .memory}')
+            # Extract only taskDefinition section
+            TASK_DEF=$(echo "$TASK_JSON" | jq '.taskDefinition')
 
-            # Register new task definition revision
-            NEW_TASK_DEF_ARN=$(echo $NEW_TASK_JSON | aws ecs register-task-definition --cli-input-json file:///dev/stdin | jq -r '.taskDefinition.taskDefinitionArn')
+            # Update only the container image
+            NEW_TASK_DEF=$(echo "$TASK_DEF" | jq --arg IMAGE "$IMAGE_URI" '
+              .containerDefinitions = (.containerDefinitions | map(.image = $IMAGE))
+            ')
+
+            # Register new task revision
+            NEW_TASK_DEF_ARN=$(echo "$NEW_TASK_DEF" | \
+              aws ecs register-task-definition --cli-input-json file:///dev/stdin | \
+              jq -r '.taskDefinition.taskDefinitionArn')
 
             echo "New Task Definition ARN: $NEW_TASK_DEF_ARN"
 
-            # Update ECS service with new task definition
+            # Update ECS service to use new revision
             aws ecs update-service \
               --cluster $CLUSTER_NAME \
               --service $ECS_SERVICE \
               --task-definition $NEW_TASK_DEF_ARN
 
-            echo "Updated ECS service: $ECS_SERVICE → $NEW_TASK_DEF_ARN"
+            echo "Updated ECS service $ECS_SERVICE → $NEW_TASK_DEF_ARN"
 
           done
