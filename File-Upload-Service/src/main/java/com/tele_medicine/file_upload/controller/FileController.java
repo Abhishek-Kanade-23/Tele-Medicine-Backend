@@ -1,6 +1,7 @@
 package com.tele_medicine.file_upload.controller;
 
 import com.tele_medicine.file_upload.dto.FileResponse;
+import com.tele_medicine.file_upload.dto.DoctorFileResponse;
 import com.tele_medicine.file_upload.service.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class FileController {
     private final FileService fileService;
     private final MedicalDocumentRepository repo;
 
+    // To handle file upload
     @PostMapping(value = "/upload", consumes = "multipart/form-data")
     public ResponseEntity<?> upload(
             @RequestPart("file") MultipartFile file,
@@ -38,6 +40,7 @@ public class FileController {
         return ResponseEntity.ok(response);
     }
 
+    // To generate pre-signed download URL
     @GetMapping("/download-url")
     public ResponseEntity<String> getDownloadUrl(
             @RequestParam String fileName,
@@ -46,15 +49,30 @@ public class FileController {
         return ResponseEntity.ok(url);
     }
 
+    // to return list of files
     @GetMapping("/list")
     public List<FileResponse> getFiles(@RequestHeader("X-Patient-Id") String patientId) {
         return fileService.getAllFiles(patientId);
     }
 
+    // to delete a file
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteFile(@PathVariable Long id) {
         fileService.deleteFile(id);
         return ResponseEntity.ok("Deleted successfully");
+    }
+
+    // to return list of files for doctor
+    @GetMapping("/doctor/all")
+    public List<DoctorFileResponse> getAllDocumentsForDoctor() {
+        return fileService.getAllDocumentsForDoctor();
+    }
+
+    // to generate pre-signed download URL for doctor
+    @GetMapping("/doctor/download-url")
+    public ResponseEntity<String> getDoctorDownloadUrl(@RequestParam String fileName) {
+        String url = fileService.generatePresignedUrlForDoctor(fileName);
+        return ResponseEntity.ok(url);
     }
 
 }

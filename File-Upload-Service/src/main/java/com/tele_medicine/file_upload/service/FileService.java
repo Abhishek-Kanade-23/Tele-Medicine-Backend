@@ -1,5 +1,6 @@
 package com.tele_medicine.file_upload.service;
 
+import com.tele_medicine.file_upload.dto.DoctorFileResponse;
 import com.tele_medicine.file_upload.dto.FileResponse;
 import com.tele_medicine.file_upload.entity.MedicalDocument;
 import com.tele_medicine.file_upload.repository.MedicalDocumentRepository;
@@ -153,5 +154,43 @@ public class FileService {
 
                 repo.delete(doc);
         }
+
+        // list all documents for doctor view
+        public List<DoctorFileResponse> getAllDocumentsForDoctor() {
+                return repo.findAll().stream()
+                                .map(doc -> DoctorFileResponse.builder()
+                                                .id(doc.getId())
+                                                .fileName(doc.getFileName())
+                                                .documentType(doc.getDocumentType())
+                                                .description(doc.getDescription())
+                                                .recordDate(doc.getRecordDate().toString())
+                                                .uploadedAt(doc.getUploadedAt().toString())
+                                                .patientId(doc.getPatientId()) // ★ include here
+                                                .build())
+                                .toList();
+        }
+
+        // generate presigned URL for doctor
+        public String generatePresignedUrlForDoctor(String fileName) {
+    MedicalDocument doc = repo.findByFileName(fileName);
+    if (doc == null) {
+        throw new RuntimeException("File not found");
+    }
+
+    URL url = presigner.presignGetObject(
+            GetObjectPresignRequest.builder()
+                    .getObjectRequest(
+                        GetObjectRequest.builder()
+                        .bucket(bucketName)
+                        .key(doc.getFileName())
+                        .build()
+                    )
+                    .signatureDuration(Duration.ofMinutes(10))
+                    .build()
+    ).url();
+
+    return url.toString();
+}
+
 
 }
