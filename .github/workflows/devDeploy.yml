@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
 
 env:
-  SERVICES: Api-Gateway-Service,Authentication-Service,Eureka-registry-Service
+  SERVICES: Api-Gateway-Service,Authentication-Service,Eureka-Registery-Service
   AWS_REGION: ap-south-1
-  AWS_ACCOUNT_ID: 471112677067   # <-- HARDCODED
+  AWS_ACCOUNT_ID: 471112677067
 
 jobs:
   build-push:
@@ -43,23 +43,19 @@ jobs:
             echo "============ Building $service ============"
             cd $service
 
-            # Run Maven build
+            # Build with Maven
             mvn -q -DskipTests clean package
 
-            # Prepare variables
             SERVICE_NAME=$(echo $service | tr '[:upper:]' '[:lower:]')
             REPO_NAME="telemedicine-$SERVICE_NAME"
 
             IMAGE_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPO_NAME}:${{ github.sha }}"
 
-            # Create ECR repo if missing
             aws ecr describe-repositories --repository-names $REPO_NAME >/dev/null 2>&1 || \
             aws ecr create-repository --repository-name $REPO_NAME
 
-            # Build Docker image
             docker build -t $REPO_NAME:${{ github.sha }} .
 
-            # Tag + Push
             docker tag $REPO_NAME:${{ github.sha }} $IMAGE_URI
             docker push $IMAGE_URI
 
