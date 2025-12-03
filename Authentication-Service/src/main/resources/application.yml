@@ -47,7 +47,7 @@
 
 
 server:
-  port: 8083
+  port: 8090
 
 jwt:
   secret: "9v8B3kLq7sT2mY1pQ4zXcV6uN0hJ5rF2bG7dH9kL0pQh2fM3nJ4tW8zX1yV6uR85394djfhywue89qweh9hweh9qwhasjkcauiuiweqwASascadfafa67567dfasdasdasdasdafvsvsvsdvsdfsdfsdfdfasdasdasdasdasfdaweasdasdcasdvsdfsdascascxw0="
@@ -59,7 +59,7 @@ spring:
 
   datasource:
     # Use the direct connection URL for JPA/Hibernate operations
-    url: jdbc:postgresql://aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require
+    url: jdbc:postgresql://aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres?sslmode=require
     username: postgres.clpaasikckeoplfbqunc
     password: Pune@Encora45
     driver-class-name: org.postgresql.Driver

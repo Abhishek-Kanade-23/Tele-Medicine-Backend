@@ -38,6 +38,8 @@ public class Patient {
 
     private String bloodGroup ;
 
+    private boolean isProfileComplete ;
+
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

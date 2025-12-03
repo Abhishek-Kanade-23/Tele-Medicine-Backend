@@ -10,7 +10,7 @@ public interface PatientService {
 	List<PatientDTO> getAllPatients();
 	PatientDTO getPatientById(Long patientId);
 	PatientResponseDTO addPatient(PatientDTO patient);
-	String updatePatient(Long patientId, PatientDTO patient);
+	PatientResponseDTO updatePatient(Long patientId, PatientDTO patient);
     String deletePatient(Long patientId);
     PatientDTO checkPatientExists(Long patientId);
 

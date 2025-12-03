@@ -3,6 +3,7 @@ package com.telemed.doctor.model.dto;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -11,7 +12,6 @@ import java.time.LocalTime;
 public class AvailabilityDTO {
 
     private Long doctorId;
-    private LocalDate availableDate;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private int appointmentDuration ;
+    private Map<String, WorkingHourDTO> workingHours;
 }

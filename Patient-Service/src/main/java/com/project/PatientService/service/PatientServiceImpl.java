@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.project.PatientService.DTO.PatientResponseDTO;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,11 @@ public class PatientServiceImpl implements PatientService {
 	@Autowired
 	private PatientRepository patientRepository;
 
+
+    @Autowired
+    private ModelMapper modelMapper ;
+
+
 	@Override
 	public List<PatientDTO> getAllPatients() {
 		return patientRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
@@ -27,7 +33,9 @@ public class PatientServiceImpl implements PatientService {
 		Patient patient = patientRepository.findById(patientId)
 				.orElseThrow(() -> new RuntimeException("Patient not found with ID: " + patientId));
 
-		return convertToDTO(patient);
+		PatientDTO p =  convertToDTO(patient);
+        System.out.println("Patient ==> " + p);
+        return p ;
 	}
 
 	@Override
@@ -52,6 +60,7 @@ public class PatientServiceImpl implements PatientService {
                 .address(dto.getAddress())
                 .weight(dto.getWeight())
                 .bloodGroup(dto.getBloodGroup())
+                .isProfileComplete(dto.isProfileComplete())
                 .build();
 
 		Patient createdPatient = patientRepository.save(entity);
@@ -66,7 +75,8 @@ public class PatientServiceImpl implements PatientService {
                 createdPatient.getEmailId(),
                 createdPatient.getAddress(),
                 createdPatient.getWeight(),
-                createdPatient.getBloodGroup()
+                createdPatient.getBloodGroup(),
+                createdPatient.isProfileComplete()
         );
 	}
 
@@ -86,7 +96,10 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 	@Override
-	public String updatePatient(Long patientId, PatientDTO dto) {
+	public PatientResponseDTO updatePatient(Long patientId, PatientDTO dto) {
+
+
+        System.out.println("patientId ==> " + patientId + " dto ==> " + dto);
 
 		Patient existing = patientRepository.findById(patientId)
 				.orElseThrow(() -> new RuntimeException("Patient not found with ID: " + patientId));
@@ -101,7 +114,7 @@ public class PatientServiceImpl implements PatientService {
         existing.setWeight(dto.getWeight());
         existing.setBloodGroup(dto.getBloodGroup());
 		patientRepository.save(existing);
-		return "Patient updated successfully";
+		return modelMapper.map( existing , PatientResponseDTO.class);
 	}
 
 	@Override
@@ -146,6 +159,7 @@ public class PatientServiceImpl implements PatientService {
                 .emailId(patient.getEmailId())
                 .address(patient.getAddress())
                 .bloodGroup(patient.getBloodGroup())
+                .weight(patient.getWeight())
                 .build();
     }
 

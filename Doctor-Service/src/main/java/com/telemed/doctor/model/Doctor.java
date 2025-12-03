@@ -38,13 +38,15 @@ private Integer experience;
   // years of experience
 
     private String emailId;
-    private String phone;
+    private String phoneNumber;
 
-    @Enumerated(EnumType.STRING)
-    private Gender gender ;
+
+    private String gender ;
 
 
     private String address ;
+
+    private boolean isProfileComplete ;
 
 
     private LocalDateTime createdAt;

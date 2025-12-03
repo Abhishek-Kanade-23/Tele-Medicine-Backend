@@ -18,6 +18,8 @@ public class DoctorUpdateDTO {
 
     private int experience;
 
-    private String email;
-    private String phone;
+    private String emailId;
+    private String phoneNumber;
+    private String gender ;
+    private String address ;
 }

@@ -2,6 +2,7 @@ package com.telemed.doctor.controller;
 
 import com.telemed.doctor.model.DoctorAvailability;
 import com.telemed.doctor.model.dto.AvailabilityDTO;
+import com.telemed.doctor.model.dto.DoctorAvailabilityResponseDTO;
 import com.telemed.doctor.service.DoctorAvailabilityService;
 import lombok.RequiredArgsConstructor;
 
@@ -18,9 +19,12 @@ public class AvailabilityController {
     private final DoctorAvailabilityService availabilityService;
 
     // Add availability slot
-    @PostMapping
-    public DoctorAvailability addAvailability(@RequestBody AvailabilityDTO dto) {
-        return availabilityService.addAvailability(dto);
+    @PutMapping
+    public ResponseEntity<DoctorAvailabilityResponseDTO> addAvailability(@RequestBody AvailabilityDTO dto) {
+
+        System.out.println("AvailabilityDTO ==> " + dto);
+        return ResponseEntity.ok(availabilityService.addAvailability(dto));
+//        return  ResponseEntity.ok(new DoctorAvailabilityResponseDTO()) ;
     }
 
     // Get all slots for doctor

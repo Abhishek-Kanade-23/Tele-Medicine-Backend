@@ -18,4 +18,5 @@ public class PatientDTO {
     private String address;
     private float weight ;
     private String bloodGroup ;
+    private boolean isProfileComplete ;
 }

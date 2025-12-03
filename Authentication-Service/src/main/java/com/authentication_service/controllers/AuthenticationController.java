@@ -4,6 +4,7 @@ package com.authentication_service.controllers;
 import com.authentication_service.dtos.*;
 import com.authentication_service.entities.User;
 import com.authentication_service.services.DoctorServiceClient;
+
 import com.authentication_service.services.PatientServiceClient;
 import com.authentication_service.services.UserService;
 import jakarta.validation.Valid;

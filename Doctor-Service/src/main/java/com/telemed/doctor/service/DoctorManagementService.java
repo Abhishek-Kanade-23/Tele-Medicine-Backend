@@ -33,12 +33,15 @@ public class DoctorManagementService {
                 .department(dto.getDepartment())
                 .experience(dto.getExperience())
                 .emailId(dto.getEmailId())
-                .phone(dto.getPhone())
-                .gender(Gender.valueOf(dto.getGender()))
+                .phoneNumber(dto.getPhoneNumber())
+                .gender(dto.getGender())
                 .address(dto.getAddress())
+                .isProfileComplete(dto.isProfileComplete())
                 .build();
 
         Doctor saved = doctorRepository.save(doctor);
+
+        System.out.println("Saved Doctor ==> " + saved);
 
         return convertToResponse(saved);
     }
@@ -64,15 +67,22 @@ public class DoctorManagementService {
         Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Doctor not found"));
 
+        System.out.println("doctorId ==> " +doctor + " dto " + dto);
         doctor.setFirstName(dto.getFirstName());
         doctor.setLastName(dto.getLastName());
         doctor.setSpecialization(dto.getSpecialization());
         doctor.setDepartment(dto.getDepartment());
         doctor.setExperience(dto.getExperience());
-        doctor.setEmailId(dto.getEmail());
-        doctor.setPhone(dto.getPhone());
+        doctor.setEmailId(dto.getEmailId());
+        doctor.setPhoneNumber(dto.getPhoneNumber());
+        doctor.setAddress(dto.getAddress());
+        doctor.setGender(dto.getGender());
+
 
         Doctor updated = doctorRepository.save(doctor);
+
+
+        System.out.println("Updated Docter ==> " + updated);
 
         return convertToResponse(updated);
     }
@@ -95,14 +105,21 @@ public class DoctorManagementService {
                 .department(doctor.getDepartment())
                 .experience(doctor.getExperience())
                 .emailId(doctor.getEmailId())
-                .phone(doctor.getPhone())
+                .phoneNumber(doctor.getPhoneNumber())
                 .address(doctor.getAddress())
+                .gender(doctor.getGender().toString())
+                .isProfileComplete(doctor.isProfileComplete())
                 .build();
     }
 
     public DoctorResponseDTO checkDoctorExists(Long doctorId) {
 
+
+        System.out.println("Recevide req ==> " + doctorId);
+
     Doctor doctor = doctorRepository.findById(doctorId).orElse(null);
+
+        System.out.println("Recevide Doctor ==> " + doctor);
 
     if (doctor == null) {
         // Return EMPTY PROFILE
@@ -114,7 +131,9 @@ public class DoctorManagementService {
                 .department(null)
                 .experience(0)
                 .emailId("")
-                .phone("")
+                .phoneNumber("")
+                .gender("")
+                .isProfileComplete(false)
                 .build();
     }
 

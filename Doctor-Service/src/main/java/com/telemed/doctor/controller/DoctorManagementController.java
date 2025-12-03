@@ -57,6 +57,7 @@ public class DoctorManagementController {
 
     @GetMapping("/check/{doctorId}")
 public DoctorResponseDTO checkDoctorExists(@PathVariable Long doctorId) {
+
     return doctorService.checkDoctorExists(doctorId);
 }
 

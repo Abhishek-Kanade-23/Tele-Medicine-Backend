@@ -1,47 +1,54 @@
 package com.authentication_service.dtos;
 
-import java.util.List;
-
 public class UserSignInResponseDTO {
-
-    private Long userId;
-    private String emailId;
+    private PatientProfileDTO patientProfile ;
+    private DoctorProfileDTO doctorProfile ;
     private String jwtToken;
-    private List<String> roles;
 
-    private boolean isProfileComplete;
 
-    private PatientDTO patientProfile;
-    private DoctorResponseDTO doctorProfile; // NEW
-
-    public UserSignInResponseDTO() {}
-
-    public UserSignInResponseDTO(String emailId, String jwtToken, Long userId, List<String> roles) {
-        this.emailId = emailId;
-        this.jwtToken = jwtToken;
-        this.userId = userId;
-        this.roles = roles;
+    public UserSignInResponseDTO() {
     }
 
-    // getters/setters
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
+    public UserSignInResponseDTO(PatientProfileDTO patientProfile, DoctorProfileDTO doctorProfile, String jwtToken, boolean isProfileComplete) {
+        this.patientProfile = patientProfile;
+        this.doctorProfile = doctorProfile;
+        this.jwtToken = jwtToken;
+        
+    }
 
-    public String getEmailId() { return emailId; }
-    public void setEmailId(String emailId) { this.emailId = emailId; }
+    public PatientProfileDTO getPatientProfile() {
+        return patientProfile;
+    }
 
-    public String getJwtToken() { return jwtToken; }
-    public void setJwtToken(String jwtToken) { this.jwtToken = jwtToken; }
+    public void setPatientProfile(PatientProfileDTO patientProfile) {
+        this.patientProfile = patientProfile;
+    }
 
-    public List<String> getRoles() { return roles; }
-    public void setRoles(List<String> roles) { this.roles = roles; }
+    public DoctorProfileDTO getDoctorProfile() {
+        return doctorProfile;
+    }
 
-    public boolean isProfileComplete() { return isProfileComplete; }
-    public void setProfileComplete(boolean profileComplete) { isProfileComplete = profileComplete; }
+    public void setDoctorProfile(DoctorProfileDTO doctorProfile) {
+        this.doctorProfile = doctorProfile;
+    }
 
-    public PatientDTO getPatientProfile() { return patientProfile; }
-    public void setPatientProfile(PatientDTO patientProfile) { this.patientProfile = patientProfile; }
+    public String getJwtToken() {
+        return jwtToken;
+    }
 
-    public DoctorResponseDTO getDoctorProfile() { return doctorProfile; }
-    public void setDoctorProfile(DoctorResponseDTO doctorProfile) { this.doctorProfile = doctorProfile; }
+    public void setJwtToken(String jwtToken) {
+        this.jwtToken = jwtToken;
+    }
+
+   
+
+    @Override
+    public String toString() {
+        return "UserSignInResponseDTO{" +
+                "patientProfile=" + patientProfile +
+                ", doctorProfile=" + doctorProfile +
+                ", jwtToken='" + jwtToken + '\'' +
+                
+                '}';
+    }
 }
