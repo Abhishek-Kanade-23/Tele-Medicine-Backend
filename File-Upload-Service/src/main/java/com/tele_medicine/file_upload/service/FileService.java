@@ -1,3 +1,4 @@
+// Feature branch 
 package com.tele_medicine.file_upload.service;
 
 import com.tele_medicine.file_upload.dto.DoctorFileResponse;
@@ -172,25 +173,23 @@ public class FileService {
 
         // generate presigned URL for doctor
         public String generatePresignedUrlForDoctor(String fileName) {
-    MedicalDocument doc = repo.findByFileName(fileName);
-    if (doc == null) {
-        throw new RuntimeException("File not found");
-    }
+                MedicalDocument doc = repo.findByFileName(fileName);
+                if (doc == null) {
+                        throw new RuntimeException("File not found");
+                }
 
-    URL url = presigner.presignGetObject(
-            GetObjectPresignRequest.builder()
-                    .getObjectRequest(
-                        GetObjectRequest.builder()
-                        .bucket(bucketName)
-                        .key(doc.getFileName())
-                        .build()
-                    )
-                    .signatureDuration(Duration.ofMinutes(10))
-                    .build()
-    ).url();
+                URL url = presigner.presignGetObject(
+                                GetObjectPresignRequest.builder()
+                                                .getObjectRequest(
+                                                                GetObjectRequest.builder()
+                                                                                .bucket(bucketName)
+                                                                                .key(doc.getFileName())
+                                                                                .build())
+                                                .signatureDuration(Duration.ofMinutes(10))
+                                                .build())
+                                .url();
 
-    return url.toString();
-}
-
+                return url.toString();
+        }
 
 }
