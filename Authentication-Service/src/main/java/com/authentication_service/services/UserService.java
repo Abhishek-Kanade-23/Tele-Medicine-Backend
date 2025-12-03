@@ -119,10 +119,15 @@ public class UserService implements UserDetailsService {
 
         User retrievedUser = (User) authentication.getPrincipal();
 
+        System.out.println("retrievedUser ==> " + retrievedUser);
+
         List<String> userRoles = retrievedUser.getRoles()
                 .stream()
                 .map(Role::getRoleType)
                 .collect(Collectors.toList());
+
+
+                System.out.println("ROLES ==> " + userRoles);
 
         String generatedToken = jwtUtility.generateToken(
                 retrievedUser.getUserId(),
@@ -130,60 +135,64 @@ public class UserService implements UserDetailsService {
                 retrievedUser.getEmailId()
         );
 
-        UserSignInResponseDTO response = new UserSignInResponseDTO(
-                retrievedUser.getEmailId(),
-                "Bearer " + generatedToken,
-                retrievedUser.getUserId(),
-                userRoles
-        );
+        boolean isProfileComplete = false ;
+        UserSignInResponseDTO response = new UserSignInResponseDTO() ;
 
-        boolean isProfileComplete = false;
 
-        // ----------------------------------------------------------
-        //    ROLE: PATIENT
-        // ----------------------------------------------------------
-        if (userRoles.contains("PATIENT")) {
+        if( userRoles.contains("PATIENT") ){
+               System.out.println("Yes PATIENT");
+
 
             try {
-                PatientDTO patientProfile = patientServiceClient.checkPatientExists(retrievedUser.getUserId());
+
+                PatientProfileDTO patientProfile = patientServiceClient.checkPatientExists(retrievedUser.getUserId());
+
+                System.out.println("patientProfile ==> " + patientProfile);
+                patientProfile.setPatientId(retrievedUser.getUserId());
+                patientProfile.setEmailId(retrievedUser.getEmailId());
                 response.setPatientProfile(patientProfile);
 
-                if (patientProfile != null &&
-                        patientProfile.getName() != null &&
-                        !patientProfile.getName().isEmpty()) {
-                    isProfileComplete = true;
+                if (patientProfile != null && patientProfile.getFirstName() != null  && patientProfile.getLastName() != null && !patientProfile.getFirstName().isEmpty() && !patientProfile.getLastName().isEmpty()) {
+                        isProfileComplete = true;
+                        patientProfile.setProfileComplete(true);
                 }
 
             } catch (Exception e) {
                 System.out.println("Patient service error: " + e.getMessage());
-                response.setPatientProfile(new PatientDTO());
+                response.setPatientProfile(new PatientProfileDTO());
             }
 
         }
-
-        // ----------------------------------------------------------
-        //    ROLE: DOCTOR
-        // ----------------------------------------------------------
-        if (userRoles.contains("DOCTOR")) {
+        else if( userRoles.contains("DOCTOR") ){
+                
+            System.out.println("Yes Doctor");
 
             try {
-                DoctorResponseDTO doctorProfile = doctorServiceClient.checkDoctorExists(retrievedUser.getUserId());
+                DoctorProfileDTO doctorProfile = doctorServiceClient.checkDoctorExists(retrievedUser.getUserId());
+                doctorProfile.setDoctorId(retrievedUser.getUserId());
+                doctorProfile.setEmailId(retrievedUser.getEmailId());
                 response.setDoctorProfile(doctorProfile);
 
-                if (doctorProfile != null &&
-                        doctorProfile.getFirstName() != null &&
-                        !doctorProfile.getFirstName().isEmpty()) {
+                if (doctorProfile != null && doctorProfile.getFirstName() != null && doctorProfile.getLastName() != null  && !doctorProfile.getFirstName().isEmpty() && !doctorProfile.getLastName().isEmpty() ) {
                     isProfileComplete = true;
+                    doctorProfile.setProfileComplete(true);
                 }
 
             } catch (Exception e) {
                 System.out.println("Doctor service error: " + e.getMessage());
-                response.setDoctorProfile(new DoctorResponseDTO());
+                response.setDoctorProfile(new DoctorProfileDTO());
             }
 
         }
+        else{
 
-        response.setProfileComplete(isProfileComplete);
+        }
+
+        response.setJwtToken( "Bearer " + generatedToken);
+        
+
+        System.out.println( response );
+
         return response;
     }
 

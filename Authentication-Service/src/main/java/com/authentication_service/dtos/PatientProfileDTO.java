@@ -1,33 +1,34 @@
-package com.project.PatientService.DTO;
+package com.authentication_service.dtos;
 
-public class PatientResponseDTO {
+
+public class PatientProfileDTO {
     private Long patientId;
-    private String firstName ;
-    private String lastName ;
-    private Integer age;
-    private String gender;
-    private String phone;
+    private String firstName;
+    private  String lastName ;
+    private String gender ;
     private String emailId;
-    private String address;
-    private float weight ;
+    private String phone ;
     private String bloodGroup ;
+    private int age ;
+    private float weight ;
+    private String address ;
     private boolean isProfileComplete ;
 
-    public PatientResponseDTO() {
-    }
-
-    public PatientResponseDTO(Long patientId, String firstName, String lastName, Integer age, String gender, String phone, String emailId, String address, float weight, String bloodGroup , boolean isProfileComplete) {
+    public PatientProfileDTO(Long patientId, String firstName, String lastName, String gender, String emailId, String phoneNumber, String bloodGroup, int age, float weight, String address , boolean isProfileComplete) {
         this.patientId = patientId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
         this.gender = gender;
-        this.phone = phone;
         this.emailId = emailId;
-        this.address = address;
-        this.weight = weight;
+        this.phone = phoneNumber;
         this.bloodGroup = bloodGroup;
+        this.age = age;
+        this.weight = weight;
+        this.address = address;
         this.isProfileComplete = isProfileComplete ;
+    }
+
+    public PatientProfileDTO() {
     }
 
     public boolean isProfileComplete() {
@@ -62,28 +63,12 @@ public class PatientResponseDTO {
         this.lastName = lastName;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
     public String getGender() {
         return gender;
     }
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getEmailId() {
@@ -94,20 +79,12 @@ public class PatientResponseDTO {
         this.emailId = emailId;
     }
 
-    public String getAddress() {
-        return address;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(float weight) {
-        this.weight = weight;
+    public void setPhone(String phoneNumber) {
+        this.phone = phoneNumber;
     }
 
     public String getBloodGroup() {
@@ -118,19 +95,43 @@ public class PatientResponseDTO {
         this.bloodGroup = bloodGroup;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
-        return "PatientResponseDTO{" +
+        return "PatientProfileDTO{" +
                 "patientId=" + patientId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", age=" + age +
                 ", gender='" + gender + '\'' +
-                ", phone='" + phone + '\'' +
                 ", emailId='" + emailId + '\'' +
-                ", address='" + address + '\'' +
-                ", weight=" + weight +
+                ", phone='" + phone + '\'' +
                 ", bloodGroup='" + bloodGroup + '\'' +
+                ", age=" + age +
+                ", weight=" + weight +
+                ", address='" + address + '\'' +
                 ", isProfileComplete=" + isProfileComplete +
                 '}';
     }

@@ -20,6 +20,8 @@ public class DoctorResponseDTO {
     private int experience;
 
     private String emailId;
-    private String phone;
+    private String phoneNumber;
     private String address ;
+    private String gender ;
+    private boolean isProfileComplete ;
 }

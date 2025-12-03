@@ -20,7 +20,8 @@ public class DoctorCreateDTO {
     private int experience;
 
     private String emailId;
-    private String phone;
+    private String phoneNumber;
     private String gender ;
     private String address ;
+    private boolean isProfileComplete ;
 }

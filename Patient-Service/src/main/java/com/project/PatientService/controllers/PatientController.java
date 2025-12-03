@@ -31,11 +31,14 @@ public class PatientController {
 	public ResponseEntity<PatientResponseDTO> addPatient(@RequestBody PatientDTO patient) {
 
 
+        System.out.println("PatientDTO ==> " + patient);
+
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(patientService.addPatient(patient));
 	}
 
 	@PutMapping("/{patientId}")
-	public ResponseEntity<String> updatePatient(@PathVariable Long patientId, @RequestBody PatientDTO dto) {
+	public ResponseEntity<PatientResponseDTO> updatePatient(@PathVariable Long patientId, @RequestBody PatientDTO dto) {
 		return ResponseEntity.ok(patientService.updatePatient(patientId, dto));
 	}
 

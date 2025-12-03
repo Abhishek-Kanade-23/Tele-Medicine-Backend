@@ -22,29 +22,15 @@ public class DoctorAvailability {
     @Column(name = "doctor_id", nullable = false)
     private Long doctorId;
 
-    @Column(name = "available_date", nullable = false)
-    private LocalDate availableDate;
+    @Column(nullable = false)
+    private String day ;
 
-    @Column(name = "start_time", nullable = false)
-    private LocalTime startTime;
+    @Column( nullable = false)
+    private String startTime ;
+    @Column( nullable = false)
 
-    @Column(name = "end_time", nullable = false)
-    private LocalTime endTime;
+    private String endTime ;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    @PrePersist
-    public void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
+    @Column( nullable = false)
+    private boolean enabled ;
 }
